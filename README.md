@@ -2,10 +2,10 @@
 
 Gorm Connection provides a wrapper for use gorm easily
 
-### Use mode
+### Example use mode
 ```go
 import (
-    sql "github.com/pzentenoe/gorm-connection/sql"
+	"github.com/pzentenoe/gorm-connection/sql"
 )
 
 
@@ -53,8 +53,14 @@ type Product struct {
 func (*User) TableName() string {
     return "products"
 }
+```
 
-
+## Available drivers
+```
+SQLServer 
+MySQL     
+Postgres  
+SQLite    
 ```
 
 ### Author
