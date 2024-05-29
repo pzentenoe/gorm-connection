@@ -2,22 +2,35 @@ package sql
 
 import (
 	"fmt"
-
 	"github.com/PuerkitoBio/urlesc"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
+	"time"
+)
+
+var (
+	defaultTimezone        = "UTC"
+	defaultMaxIdleCons     = 10
+	defaultMaxOpenCons     = 100
+	defaultConnMaxLifetime = time.Minute * 30
+	defaultConnMaxIdleTime = time.Minute * 30
 )
 
 type DBOption struct {
-	sqlDialect   SQLDialect
-	databaseName *string
-	host         *string
-	port         *int
-	user         *string
-	password     *string
+	sqlDialect      SQLDialect
+	databaseName    *string
+	host            *string
+	port            *int
+	user            *string
+	password        *string
+	timezone        *string
+	maxIdleConns    *int
+	maxOpenConns    *int
+	connMaxLifetime *time.Duration
+	connMaxIdleTime *time.Duration
 }
 
 func Config() *DBOption {
@@ -54,64 +67,135 @@ func (c *DBOption) Password(password string) *DBOption {
 	return c
 }
 
-func MergeOptions(opts ...*DBOption) *DBOption {
+func (c *DBOption) Timezone(timezone string) *DBOption {
+	c.timezone = &timezone
+	return c
+}
+
+func (c *DBOption) MaxIdleConns(maxIdleConns int) *DBOption {
+	c.maxIdleConns = &maxIdleConns
+	return c
+}
+
+func (c *DBOption) MaxOpenConns(maxOpenConns int) *DBOption {
+	c.maxOpenConns = &maxOpenConns
+	return c
+}
+func (c *DBOption) ConnMaxLifetime(connMaxLifetime time.Duration) *DBOption {
+	c.connMaxLifetime = &connMaxLifetime
+	return c
+}
+
+func (c *DBOption) ConnMaxIdleTime(connMaxIdleTime time.Duration) *DBOption {
+	c.connMaxIdleTime = &connMaxIdleTime
+	return c
+}
+
+func MergeOptions(opts ...*DBOption) (*DBOption, error) {
 	option := new(DBOption)
 
 	for _, opt := range opts {
-		if opt.sqlDialect != "" {
+		if opt.sqlDialect.Name != "" {
 			option.sqlDialect = opt.sqlDialect
-		} else {
-			panic("Invalid sqlDialect")
 		}
 		if opt.databaseName != nil {
 			option.databaseName = opt.databaseName
-		} else {
-			panic("Invalid database name")
 		}
 		if opt.host != nil {
 			option.host = opt.host
-		} else {
-			panic("invalid host")
 		}
 		if opt.port != nil {
 			option.port = opt.port
 		} else {
-			panic("invalid port")
+			port := option.sqlDialect.DefaultPort
+			option.port = &port
 		}
 		if opt.user != nil {
 			option.user = opt.user
-		} else {
-			panic("invalid user")
 		}
 		if opt.password != nil {
 			option.password = opt.password
+		}
+		if opt.timezone != nil {
+			option.timezone = opt.timezone
 		} else {
-			panic("empty password")
+			option.timezone = &defaultTimezone
+		}
+		if opt.maxIdleConns != nil {
+			option.maxIdleConns = opt.maxIdleConns
+		} else {
+			option.maxIdleConns = &defaultMaxIdleCons
+		}
+		if opt.maxOpenConns != nil {
+			option.maxOpenConns = opt.maxOpenConns
+		} else {
+			option.maxOpenConns = &defaultMaxOpenCons
+		}
+		if opt.connMaxLifetime != nil {
+			option.connMaxLifetime = opt.connMaxLifetime
+		} else {
+			option.connMaxLifetime = &defaultConnMaxLifetime
+		}
+		if opt.connMaxIdleTime != nil {
+			option.connMaxIdleTime = opt.connMaxIdleTime
+		} else {
+			option.connMaxIdleTime = &defaultConnMaxIdleTime
 		}
 	}
-	return option
+
+	err := validateMandatoryOptions(option)
+	if err != nil {
+		return nil, err
+	}
+
+	return option, nil
 }
 
-type SQLDialect string
+func validateMandatoryOptions(option *DBOption) error {
+	if option.sqlDialect.Name == "" {
+		return fmt.Errorf("Invalid sqlDialect")
+	}
+	if option.databaseName == nil {
+		return fmt.Errorf("Invalid database name")
+	}
+
+	if option.sqlDialect != SQLite {
+		if option.host == nil {
+			return fmt.Errorf("Invalid host")
+		}
+		if option.port == nil {
+			return fmt.Errorf("Invalid port")
+		}
+		if option.user == nil {
+			return fmt.Errorf("Invalid user")
+		}
+		if option.password == nil {
+			return fmt.Errorf("Empty password")
+		}
+	}
+	return nil
+}
+
+// SQLDialect type struct
+type SQLDialect struct {
+	Name        string
+	DefaultPort int
+}
+
+// SQL Dialects
+var (
+	SQLServer = SQLDialect{Name: "mssql", DefaultPort: 1433}
+	MySQL     = SQLDialect{Name: "mysql", DefaultPort: 3306}
+	Postgres  = SQLDialect{Name: "postgres", DefaultPort: 5432}
+	SQLite    = SQLDialect{Name: "sqlite3", DefaultPort: 0}
+)
 
 // Url formats
 const (
-	// "sqlserver://user:pass@host:port?database=dbName"
 	urlSQLServerFormat = "sqlserver://%v:%v@%v:%v?database=%v"
-	// "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-	urlMysqlFormat = "%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local"
-	// "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-	urlPostgresFormat = "host=%v user=%v password=%v dbname=%v port=%v sslmode=disable TimeZone=America/Santiago"
-	// "/tmp/gorm.db"
-	urlSQLiteFormat = "%v.db"
-)
-
-// SQL Dialects
-const (
-	SQLServer SQLDialect = "mssql"
-	MySQL     SQLDialect = "mysql"
-	Postgres  SQLDialect = "postgres"
-	SQLite    SQLDialect = "sqlite3"
+	urlMysqlFormat     = "%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local"
+	urlPostgresFormat  = "host=%v user=%v password=%v dbname=%v port=%v sslmode=disable TimeZone=%v"
+	urlSQLiteFormat    = "%v.db"
 )
 
 func (c *DBOption) getGormDialector() gorm.Dialector {
@@ -123,10 +207,11 @@ func (c *DBOption) getGormDialector() gorm.Dialector {
 		url := fmt.Sprintf(urlMysqlFormat, *c.user, *c.password, *c.host, *c.port, *c.databaseName)
 		return mysql.Open(url)
 	case Postgres:
-		url := fmt.Sprintf(urlPostgresFormat, *c.host, *c.user, *c.password, *c.databaseName, *c.port)
+		url := fmt.Sprintf(urlPostgresFormat, *c.host, *c.user, *c.password, *c.databaseName, *c.port, *c.timezone)
 		return postgres.Open(url)
 	case SQLite:
 		return sqlite.Open(fmt.Sprintf(urlSQLiteFormat, *c.databaseName))
+	default:
+		return nil
 	}
-	return nil
 }
