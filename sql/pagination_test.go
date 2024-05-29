@@ -14,7 +14,7 @@ type TestTable struct {
 }
 
 func TestPaginate(t *testing.T) {
-	t.Run("when paginate works ok", func(t *testing.T) {
+	t.Run("Should paginate OK", func(t *testing.T) {
 		db, err := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{})
 		assert.NoError(t, err)
 
@@ -34,5 +34,27 @@ func TestPaginate(t *testing.T) {
 
 		db.Scopes(Paginate(page, pageSize)).Find(&results)
 		assert.Len(t, results, pageSize)
+	})
+
+	t.Run("Should paginate OK when page is less than 0", func(t *testing.T) {
+		db, err := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{})
+		assert.NoError(t, err)
+
+		// Creación de la tabla antes de insertar datos
+		err = db.AutoMigrate(&TestTable{})
+		assert.NoError(t, err)
+
+		// Inserción de datos en la tabla de prueba
+		for i := 0; i < 100; i++ {
+			db.Create(&TestTable{Name: fmt.Sprintf("Name %d", i)})
+		}
+
+		var results []TestTable
+
+		page := -1
+		pageSize := -10
+
+		db.Scopes(Paginate(page, pageSize)).Find(&results)
+		assert.Len(t, results, 10)
 	})
 }
