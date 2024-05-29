@@ -41,9 +41,11 @@ func (r *DBConnection) GetConnection() (*gorm.DB, error) {
 		newLogger := gormLogger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags),
 			gormLogger.Config{
-				SlowThreshold: time.Second,
-				LogLevel:      gormLogger.Warn,
-				Colorful:      false,
+				SlowThreshold:             time.Second,
+				LogLevel:                  gormLogger.Warn,
+				Colorful:                  true,
+				IgnoreRecordNotFoundError: false,
+				ParameterizedQueries:      false,
 			},
 		)
 		connection, err := gorm.Open(r.dialector, &gorm.Config{

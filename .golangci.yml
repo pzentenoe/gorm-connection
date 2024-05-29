@@ -12,7 +12,6 @@ linters:
     - unused
     #- govet
     - exportloopref
-    - exhaustruct
 
 issues:
   exclude-use-default: false
