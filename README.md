@@ -33,7 +33,7 @@ go get github.com/pzentenoe/gorm-connection/sql
 
 ### Examples
 
-You can find example usages of this library in the [examples](https://github.com/pzentenoe/gorm-connection/examples) folder of this repository.
+You can find example usages of this library in the [examples](https://github.com/pzentenoe/gorm-connection/tree/main/examples) folder of this repository.
 
 
 ## Testing
