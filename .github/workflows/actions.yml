@@ -62,11 +62,7 @@ jobs:
       - name: Generate documentation
         run: |
           mkdir -p docs
-          godoc -url "pkg/github.com/pzentenoe/gorm-connection/sql/" -goroot . -http=127.0.0.1:6060 &
-          sleep 10
-          wget -r -np -N -P docs -E -T 2 -nd -np -k -p http://127.0.0.1:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
-          mv docs/127.0.0.1:6060/pkg/github.com/pzentenoe/gorm-connection/sql/* docs/
-          rm -rf docs/127.0.0.1:6060
+          godoc -url /pkg/github.com/pzentenoe/gorm-connection/sql/ > docs/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
