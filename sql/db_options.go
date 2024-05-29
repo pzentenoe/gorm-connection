@@ -227,7 +227,7 @@ const (
 	urlSQLiteFormat    = "%v.db"
 )
 
-// getGormDialector returns the appropriate GORM dialector based on the SQL dialect and other options
+// getGormDialector returns the appropriate GORM Dialector based on the SQL dialect and other options
 func (c *DBOption) getGormDialector() gorm.Dialector {
 	switch c.sqlDialect {
 	case SQLServer:
