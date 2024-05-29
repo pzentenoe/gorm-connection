@@ -56,17 +56,12 @@ jobs:
         env:
           GO111MODULE: on
 
-      - name: Install godoc
-        run: go install golang.org/x/tools/cmd/godoc@latest
-
       - name: Generate GoDoc
-        run: |
-          mkdir -p docs
-          godoc -html > docs/index.html
-
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: ktr0731/godoc-action@v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          branch: gh-pages
