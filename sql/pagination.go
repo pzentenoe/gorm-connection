@@ -7,7 +7,7 @@ const (
 	maxSize     = 10
 )
 
-// Paginate returns a GORM scope function to apply pagination
+// Paginate returns a GORM scope function to apply pagination.
 func Paginate(page, pageSize int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		if page <= 0 {

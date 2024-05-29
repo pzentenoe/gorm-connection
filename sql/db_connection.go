@@ -11,16 +11,20 @@ import (
 	gormLogger "gorm.io/gorm/logger"
 )
 
+// Connection is an interface that defines the method to get a database connection.
 type Connection interface {
 	GetConnection() (*gorm.DB, error)
 }
 
+// DBConnection holds the details for connecting to the database.
 type DBConnection struct {
 	dialector  gorm.Dialector
 	options    *DBOption
 	connection *gorm.DB
 }
 
+// NewSQLConnection creates a new SQL database connection based on the provided options.
+// It merges the provided options and initializes the dialector. If the dialector is empty, it returns an error.
 func NewSQLConnection(opts ...*DBOption) (Connection, error) {
 	databaseOptions, err := MergeOptions(opts...)
 	if err != nil {
@@ -36,6 +40,8 @@ func NewSQLConnection(opts ...*DBOption) (Connection, error) {
 	}, nil
 }
 
+// GetConnection establishes and returns a GORM DB connection. If the connection is already established, it returns the existing one.
+// It sets up the logger, connection pool configurations, and handles errors during the connection process.
 func (r *DBConnection) GetConnection() (*gorm.DB, error) {
 	if r.connection == nil {
 		newLogger := gormLogger.New(

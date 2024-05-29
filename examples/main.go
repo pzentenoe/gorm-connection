@@ -11,13 +11,18 @@ func main() {
 	connection, err := sql.NewSQLConnection(sql.Config().
 		SetSQLDialect(sql.Postgres).
 		Host("localhost").
-		Port(sql.Postgres.DefaultPort). //Optional because there is a default port in sql.Postgres.DefaultPort
 		DatabaseName("test_db").
 		User("test_user").
-		Timezone("America/Santiago").
-		ConnMaxLifetime(time.Minute * 60).
-		Password("test_password"),
+		Password("test_password").
+		Port(sql.Postgres.DefaultPort).    //Optional because there is a default port in sql.Postgres.DefaultPort
+		Timezone("America/Santiago").      //Optional default value "UTC"
+		MaxIdleConns(5).                   //Optional value default value 10
+		MaxOpenConns(50).                  // Optional option default value Optional option default value
+		ConnMaxLifetime(time.Minute * 60). // Optional option default value time.Minute * 30
+		ConnMaxIdleTime(50),               // Optional option default value 100
+
 	)
+
 	if err != nil {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
