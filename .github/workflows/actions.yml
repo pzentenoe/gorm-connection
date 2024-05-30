@@ -29,17 +29,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      # Agregado: Paso para actualizar dependencias con go mod tidy
       - name: Update dependencies
         run: go mod tidy
 
       - name: Test with Coverage
-        run: go test ./... -coverprofile=coverage.txt -covermode=atomic
+        run: go test ./... -coverprofile=coverage.out -covermode=atomic
 
       - name: Check Coverage
         run: |
-          go tool cover -func=coverage.txt -o coverage-summary.txt
-          COVERAGE=$(go tool cover -func=coverage.txt | grep total: | awk '{print substr($3, 1, length($3)-1)}')
+          go tool cover -func=coverage.out -o coverage-summary.txt
+          COVERAGE=$(go tool cover -func=coverage.out | grep total: | awk '{print substr($3, 1, length($3)-1)}')
           echo "Total test coverage: $COVERAGE%"
           if (( $(echo "$COVERAGE < 60" |bc -l) )); then
             echo "Test coverage is below 60%"
@@ -65,8 +64,6 @@ jobs:
           args: >
             -Dsonar.projectKey=gorm-connection
             -Dsonar.sources=.
-            -Dsonar.host.url=${{ vars.SONARQUBE_URL }}
-            -Dsonar.token=${{ secrets.SONARQUBE_TOKEN }}
             -Dsonar.go.coverage.reportPaths=coverage.out
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
