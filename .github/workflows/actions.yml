@@ -62,7 +62,7 @@ jobs:
       - name: Start pkgsite
         run: |
           nohup pkgsite -http=:8080 > pkgsite.log 2>&1 &
-          sleep 5  # Esperar a que el servidor se inicie
+          sleep 10  # Esperar a que el servidor se inicie
           for i in {1..10}; do
             if curl -s http://localhost:8080 > /dev/null; then
               echo "pkgsite is up and running"
@@ -78,10 +78,10 @@ jobs:
       - name: Download GoDoc
         run: |
           mkdir -p docs
-          wget -r -np -P docs -nH --cut-dirs=1 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
+          wget -r -np -P docs -nH --cut-dirs=3 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
 
       - name: Create .nojekyll
-        run: echo > docs/.nojekyll
+        run: echo "" > docs/.nojekyll
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
