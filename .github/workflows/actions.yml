@@ -55,18 +55,15 @@ jobs:
         run: golangci-lint run ./...
         env:
           GO111MODULE: on
-
-      - name: Install godocdown
-        run: go install github.com/robertkrimen/godocdown/godocdown@latest
-
-      - name: Install Pandoc
-        run: sudo apt-get install -y pandoc
+      - name: Install godoc
+        run: go install golang.org/x/tools/cmd/godoc@latest
 
       - name: Generate GoDoc
         run: |
           mkdir -p docs
-          godocdown -output docs/doc.md ./sql
-          pandoc docs/doc.md -o docs/index.html
+          godoc -http=:6060 &
+          sleep 10
+          wget -r -np -P docs -nH --cut-dirs=1 http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
@@ -74,3 +71,23 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+
+
+#      - name: Install godocdown
+#        run: go install github.com/robertkrimen/godocdown/godocdown@latest
+#
+#      - name: Install Pandoc
+#        run: sudo apt-get install -y pandoc
+#
+#      - name: Generate GoDoc
+#        run: |
+#          mkdir -p docs
+#          godocdown -output docs/doc.md ./sql
+#          pandoc docs/doc.md -o docs/index.html
+#
+#      - name: Deploy to GitHub Pages
+#        if: github.ref == 'refs/heads/main'
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./docs
