@@ -79,7 +79,7 @@ jobs:
         run: |
           mkdir -p docs
           cd docs
-          wget -r -np -nH --cut-dirs=4 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
+          wget -r -np -nH --cut-dirs=5 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
           cd ..
 
       - name: Create .nojekyll
