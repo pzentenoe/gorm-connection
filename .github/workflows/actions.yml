@@ -78,7 +78,9 @@ jobs:
       - name: Download GoDoc
         run: |
           mkdir -p docs
-          wget -r -np -P docs -nH --cut-dirs=3 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
+          cd docs
+          wget -r -np -nH --cut-dirs=4 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
+          cd ..
 
       - name: Create .nojekyll
         run: echo "" > docs/.nojekyll
