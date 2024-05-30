@@ -4,6 +4,8 @@
 
 Gorm Connection provides a convenient wrapper to simplify interactions with GORM, reducing repetitive tasks and streamlining the process of database connectivity and operations.
 
+![Actions](https://github.com/pzentenoe/gorm-connection/actions/workflows/actions.yml/badge.svg)
+![Build](https://github.com/pzentenoe/gorm-connection/actions/workflows/actions.yml/badge.svg)
 
 ## Features
 
