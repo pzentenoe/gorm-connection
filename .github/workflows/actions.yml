@@ -100,7 +100,7 @@ jobs:
           mkdir -p docs
           godoc -http=:6060 &
           sleep 10
-          wget -r -np -P docs -nH --cut-dirs=5 http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
+          wget -r -np -P docs -nH --cut-dirs=5 -E -H -k -K -p http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
       - name: Create .nojekyll
         run: echo "" > docs/.nojekyll
       - name: Deploy to GitHub Pages
