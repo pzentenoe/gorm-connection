@@ -6,6 +6,9 @@ Gorm Connection provides a convenient wrapper to simplify interactions with GORM
 
 ![CI](https://github.com/pzentenoe/gorm-connection/actions/workflows/actions.yml/badge.svg)
 ![GoDoc](https://github.com/pzentenoe/gorm-connection/actions/workflows/documentation.yml/badge.svg)
+![Quality Gate](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=alert_status&token=sqb_9e829a0d97abfef4023d02aaaa0659e8c8ac6ef3)
+![Coverage](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=coverage&token=sqb_9e829a0d97abfef4023d02aaaa0659e8c8ac6ef3)
+![Bugs](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=bugs&token=sqb_9e829a0d97abfef4023d02aaaa0659e8c8ac6ef3)
 
 ## Features
 
