@@ -109,28 +109,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
-
-
-
-
-
-
-#      - name: Install godocdown
-#        run: go install github.com/robertkrimen/godocdown/godocdown@latest
-#
-#      - name: Install Pandoc
-#        run: sudo apt-get install -y pandoc
-#
-#      - name: Generate GoDoc
-#        run: |
-#          mkdir -p docs
-#          godocdown -output docs/doc.md ./sql
-#          pandoc docs/doc.md -o docs/index.html
-
-
-#      - name: Deploy to GitHub Pages
-#        if: github.ref == 'refs/heads/main'
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_dir: ./docs

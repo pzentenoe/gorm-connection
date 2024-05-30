@@ -13,7 +13,8 @@ Gorm Connection provides a convenient wrapper to simplify interactions with GORM
 * Default settings for SQL dialects and ports
 * Easy integration with your existing projects
 
-
+## Go Doc
+![godoc](https://pzentenoe.github.io/gorm-connection)
 
 ## Available Drivers
 
