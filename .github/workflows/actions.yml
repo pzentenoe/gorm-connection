@@ -55,19 +55,20 @@ jobs:
         run: golangci-lint run ./...
         env:
           GO111MODULE: on
-      - name: Install godoc
-        run: go install golang.org/x/tools/cmd/godoc@latest
 
       - name: Install pkgsite
         run: go install golang.org/x/pkgsite/cmd/pkgsite@latest
 
       - name: Start pkgsite
         run: |
-          nohup pkgsite -http=:8080 &
+          nohup pkgsite -http=:8080 > pkgsite.log 2>&1 &
+          sleep 20  # Esperar a que el servidor se inicie
+
+      - name: Check pkgsite log
+        run: cat pkgsite.log
 
       - name: Download GoDoc
         run: |
-          sleep 10  # Esperar a que el servidor se inicie
           mkdir -p docs
           wget -r -np -P docs -nH --cut-dirs=1 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
 
@@ -77,6 +78,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+
+#      - name: Install godoc
+#        run: go install golang.org/x/tools/cmd/godoc@latest
 
 #      - name: Generate GoDoc
 #        run: |
