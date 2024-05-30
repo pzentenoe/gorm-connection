@@ -20,7 +20,6 @@ func main() {
 		MaxOpenConns(50).                  // Optional option default value Optional option default value
 		ConnMaxLifetime(time.Minute * 60). // Optional option default value time.Minute * 30
 		ConnMaxIdleTime(50),               // Optional option default value 100
-
 	)
 
 	if err != nil {
