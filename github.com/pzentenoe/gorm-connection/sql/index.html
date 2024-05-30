@@ -1,573 +1,1735 @@
+
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#375EAB">
+<html lang="en" data-layout="responsive" data-local="true">
+  <head>
+    
+    <script>
+      window.addEventListener('error', window.__err=function f(e){f.p=f.p||[];f.p.push(e)});
+    </script>
+    <script>
+      (function() {
+        const theme = document.cookie.match(/prefers-color-scheme=(light|dark|auto)/)?.[1]
+        if (theme) {
+          document.querySelector('html').setAttribute('data-theme', theme);
+        }
+      }())
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <meta class="js-gtmID" data-gtmid="">
+    <link rel="shortcut icon" href="/static/shared/icon/favicon.ico">
+    
+  
+    <meta name="robots" content="noindex">
+  
 
-  <title>sql - Go Documentation Server</title>
+    <link href="/static/frontend/frontend.min.css?version=" rel="stylesheet">
+    
+    
+  <title>sql package - github.com/pzentenoe/gorm-connection/sql - Go Packages</title>
 
-<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
+    
+  <link href="/static/frontend/unit/unit.min.css?version=" rel="stylesheet">
+  
+  <link href="/static/frontend/unit/main/main.min.css?version=" rel="stylesheet">
 
-<script>window.initFuncs = [];</script>
-<script src="/lib/godoc/jquery.js" defer></script>
 
+  </head>
+  <body>
+    
+    <script>
+      function loadScript(src, mod = true) {
+        let s = document.createElement('script');
+        s.src = src;
+        if (mod) {
+          s.type = 'module';
+          s.async = true;
+          s.defer = true
+        }
+        document.head.appendChild(s);
+      }
+      loadScript("/third_party/dialog-polyfill/dialog-polyfill.js", false)
+      loadScript("/static/frontend/frontend.js");
+    </script>
+    
+  <header class="go-Header go-Header--full js-siteHeader">
+    <div class="go-Header-inner go-Header-inner--dark">
+      <nav class="go-Header-nav">
+        <a href="/" class="js-headerLogo" data-gtmc="nav link"
+            data-test-id="go-header-logo-link" role="heading" aria-level="1">
+          <img class="go-Header-logo" src="/static/shared/logo/go-white.svg" alt="Go">
+        </a>
+         <div class="skip-navigation-wrapper">
+            <a class="skip-to-content-link" aria-label="Skip to main content" href="#main-content"> Skip to Main Content </a>
+          </div>
+        <div class="go-Header-rightContent">
+          
+<div class="go-SearchForm js-searchForm">
+  <form
+    class="go-InputGroup go-ShortcutKey go-SearchForm-form"
+    action="/search"
+    data-shortcut="/"
+    data-shortcut-alt="search"
+    data-gtmc="search form"
+    aria-label="Search for a package"
+    role="search"
+  >
+    <input name="q" class="go-Input js-searchFocus" aria-label="Search for a package" type="search"
+        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
+        placeholder="Search packages"
+        value="" />
+    <input name="m" value="" hidden>
+    <button class="go-Button go-Button--inverted" aria-label="Submit search">
+      <img
+        class="go-Icon"
+        height="24"
+        width="24"
+        src="/static/shared/icon/search_gm_grey_24dp.svg"
+        alt=""
+      />
+    </button>
+  </form>
+  <button class="go-SearchForm-expandSearch js-expandSearch" data-gtmc="nav button"
+      aria-label="Open search" data-test-id="expand-search">
+    <img class="go-Icon go-Icon--inverted" height="24" width="24"
+        src="/static/shared/icon/search_gm_grey_24dp.svg" alt="">
 
-
-<script>var goVersion = "go1.22.3";</script>
-<script src="/lib/godoc/godocs.js" defer></script>
-</head>
-<body>
-
-<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
-...
-</div><!-- #lowframe -->
-
-<div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/pkg/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/pkg/">GoDoc</a></div>
-<a href="#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form method="GET" action="/search">
-<div id="menu">
-
-<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+  </button>
 </div>
-</form>
 
-</div></div>
+          <ul class="go-Header-menu">
+            <li class="go-Header-menuItem">
+              <a class="js-desktop-menu-hover" href="#" data-gtmc="nav link">
+                Why Go
+                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_drop_down_gm_grey_24dp.svg" alt="submenu dropdown icon">
+              </a>
+              <ul class="go-Header-submenu go-Header-submenu--why js-desktop-submenu-hover" aria-label="submenu">
+                  <li class="go-Header-submenuItem">
+                    <div>
+                      <a href="https://go.dev/solutions#case-studies">
+                        </span>Case Studies</span>
+                      </a>
+                    </div>
+                    <p>Common problems companies solve with Go</p>
+                  </li>
+                  <li class="go-Header-submenuItem">
+                    <div>
+                      <a href="https://go.dev/solutions#use-cases">
+                        </span>Use Cases</span>
+                      </a>
+                    </div>
+                    <p>Stories about how and why companies use Go</p>
+                  </li>
+                  <li class="go-Header-submenuItem">
+                    <div>
+                      <a href="https://go.dev/security/policy/">
+                        </span>Security Policy</span>
+                      </a>
+                    </div>
+                    <p>How Go can help keep you secure by default</p>
+                  </li>
+              </ul>
+            </li>
+            <li class="go-Header-menuItem">
+              <a href="https://go.dev/learn/" data-gtmc="nav link">Learn</a>
+            </li>
+            <li class="go-Header-menuItem">
+              <a class="js-desktop-menu-hover" href="#" data-gtmc="nav link">
+                Docs
+                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_drop_down_gm_grey_24dp.svg" alt="submenu dropdown icon">
+              </a>
+              <ul class="go-Header-submenu go-Header-submenu--docs js-desktop-submenu-hover" aria-label="submenu">
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/doc/effective_go">
+                      <span>Effective Go</span>
+                    </a>
+                  </div>
+                  <p>Tips for writing clear, performant, and idiomatic Go code</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/doc/">
+                      <span>Go User Manual</span>
+                    </a>
+                  </div>
+                  <p>A complete introduction to building software with Go</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://pkg.go.dev/std">
+                      <span>Standard library</span>
+                    </a>
+                  </div>
+                  <p>Reference documentation for Go's standard library</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/doc/devel/release">
+                      <span>Release Notes</span>
+                    </a>
+                  </div>
+                  <p>Learn what's new in each Go release</p>
+                </li>
+              </ul>
+            </li>
+            <li class="go-Header-menuItem go-Header-menuItem--active">
+              <a href="/" data-gtmc="nav link">Packages</a>
+            </li>
+            <li class="go-Header-menuItem">
+              <a class="js-desktop-menu-hover" href="#" data-gtmc="nav link">
+                Community
+                <img class="go-Icon" height="24" width="24" src="/static/shared/icon/arrow_drop_down_gm_grey_24dp.svg" alt="submenu dropdown icon">
+              </a>
+              <ul class="go-Header-submenu go-Header-submenu--community js-desktop-submenu-hover" aria-label="submenu">
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/talks/">
+                      <span>Recorded Talks</span>
+                    </a>
+                  </div>
+                  <p>Videos from prior events</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://www.meetup.com/pro/go">
+                      <span>Meetups</span>
+                      <i class="material-icons">
+                        <img class="go-Icon" height="24" width="24"
+                            src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                      </i>
+                    </a>
+                  </div>
+                  <p>Meet other local Go developers</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://github.com/golang/go/wiki/Conferences">
+                      <span>Conferences</span>
+                      <i class="material-icons">
+                        <img class="go-Icon" height="24" width="24"
+                            src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                      </i>
+                    </a>
+                  </div>
+                  <p>Learn and network with Go developers from around the world</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/blog">
+                      <span>Go blog</span>
+                    </a>
+                  </div>
+                  <p>The Go project's official blog.</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    <a href="https://go.dev/help">
+                      <span>Go project</span>
+                    </a>
+                  </div>
+                  <p>Get help and stay informed from Go</p>
+                </li>
+                <li class="go-Header-submenuItem">
+                  <div>
+                    Get connected
+                  </div>
+                  <p></p>
+                  <div class="go-Header-socialIcons">
+                      <a class="go-Header-socialIcon" aria-label="Get connected with google-groups (Opens in new window)" href="https://groups.google.com/g/golang-nuts" ><img src="/static/shared/logo/social/google-groups.svg" /></a>
+                      <a class="go-Header-socialIcon" aria-label="Get connected with github (Opens in new window)" href="https://github.com/golang"><img src="/static/shared/logo/social/github.svg" /></a>
+                      <a class="go-Header-socialIcon" aria-label="Get connected with twitter (Opens in new window)" href="https://twitter.com/golang"><img src="/static/shared/logo/social/twitter.svg" /></a>
+                      <a class="go-Header-socialIcon" aria-label="Get connected with reddit (Opens in new window)" href="https://www.reddit.com/r/golang/"><img src="/static/shared/logo/social/reddit.svg" /></a>
+                      <a class="go-Header-socialIcon" aria-label="Get connected with slack (Opens in new window)" href="https://invite.slack.golangbridge.org/"><img src="/static/shared/logo/social/slack.svg" /></a>
+                      <a class="go-Header-socialIcon" aria-label="Get connected with stack-overflow (Opens in new window)" href="https://stackoverflow.com/collectives/go"><img src="/static/shared/logo/social/stack-overflow.svg" /></a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <button class="go-Header-navOpen js-headerMenuButton go-Header-navOpen--white" data-gtmc="nav button" aria-label="Open navigation">
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <aside class="go-NavigationDrawer js-header">
+    <nav class="go-NavigationDrawer-nav">
+      <div class="go-NavigationDrawer-header">
+        <a href="https://go.dev/">
+          <img class="go-NavigationDrawer-logo" src="/static/shared/logo/go-blue.svg" alt="Go.">
+        </a>
+      </div>
+      <ul class="go-NavigationDrawer-list">
+          <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
+            <a href="#">
+              <span>Why Go</span>
+              <i class="material-icons">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+              </i>
+            </a>
+
+            <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
+              <div class="go-NavigationDrawer-nav">
+                <div class="go-NavigationDrawer-header">
+                  <a href="#">
+                    <i class="material-icons">
+                      <img class="go-Icon" height="24" width="24"
+                        src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                      </i>
+                      Why Go
+                  </a>
+                </div>
+                <ul class="go-NavigationDrawer-list">
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/solutions#case-studies">
+                      Case Studies
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/solutions#use-cases">
+                      Use Cases
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/security/policy/">
+                      Security Policy
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="go-NavigationDrawer-listItem">
+            <a href="https://go.dev/learn/">Learn</a>
+          </li>
+          <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
+            <a href="#">
+              <span>Docs</span>
+              <i class="material-icons">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+              </i>
+            </a>
+
+            <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
+              <div class="go-NavigationDrawer-nav">
+                <div class="go-NavigationDrawer-header">
+                  <a href="#"><i class="material-icons">
+                    <img class="go-Icon" height="24" width="24"
+                      src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                    </i>
+                    Docs
+                  </a>
+                </div>
+                <ul class="go-NavigationDrawer-list">
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/doc/effective_go">
+                      Effective Go
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/doc/">
+                      Go User Manual
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://pkg.go.dev/std">
+                      Standard library
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/doc/devel/release">
+                      Release Notes
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="go-NavigationDrawer-listItem go-NavigationDrawer-listItem--active">
+            <a href="/">Packages</a>
+          </li>
+          <li class="go-NavigationDrawer-listItem js-mobile-subnav-trigger go-NavigationDrawer-hasSubnav">
+            <a href="#">
+              <span>Community</span>
+              <i class="material-icons">
+                <img class="go-Icon" height="24" width="24"
+                  src="/static/shared/icon/navigate_next_gm_grey_24dp.svg" alt="">
+              </i>
+            </a>
+            <div class="go-NavigationDrawer go-NavigationDrawer-submenuItem">
+              <div class="go-NavigationDrawer-nav">
+                <div class="go-NavigationDrawer-header">
+                  <a href="#">
+                    <i class="material-icons">
+                      <img class="go-Icon" height="24" width="24"
+                        src="/static/shared/icon/navigate_before_gm_grey_24dp.svg" alt="">
+                    </i>
+                    Community
+                  </a>
+                </div>
+                <ul class="go-NavigationDrawer-list">
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/talks/">
+                      Recorded Talks
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://www.meetup.com/pro/go">
+                      Meetups
+                      <i class="material-icons">
+                      <img class="go-Icon" height="24" width="24"
+                          src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                      </i>
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://github.com/golang/go/wiki/Conferences">
+                      Conferences
+                      <i class="material-icons">
+                        <img class="go-Icon" height="24" width="24" src="/static/shared/icon/launch_gm_grey_24dp.svg" alt="">
+                      </i>
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/blog">
+                      Go blog
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <a href="https://go.dev/help">
+                      Go project
+                    </a>
+                  </li>
+                  <li class="go-NavigationDrawer-listItem">
+                    <div>Get connected</div>
+                    <div class="go-Header-socialIcons">
+                        <a class="go-Header-socialIcon" href="https://groups.google.com/g/golang-nuts"><img src="/static/shared/logo/social/google-groups.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://github.com/golang"><img src="/static/shared/logo/social/github.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://twitter.com/golang"><img src="/static/shared/logo/social/twitter.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://www.reddit.com/r/golang/"><img src="/static/shared/logo/social/reddit.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://invite.slack.golangbridge.org/"><img src="/static/shared/logo/social/slack.svg" /></a>
+                        <a class="go-Header-socialIcon" href="https://stackoverflow.com/collectives/go"><img src="/static/shared/logo/social/stack-overflow.svg" /></a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="go-NavigationDrawer-scrim js-scrim" role="presentation"></div>
+
+    
+  <main class="go-Main" id="main-content">
+    <div class="go-Main-banner" role="alert"></div>
+    <header class="go-Main-header js-mainHeader">
+  
+  
+  <nav class="go-Main-headerBreadcrumb go-Breadcrumb" aria-label="Breadcrumb" data-test-id="UnitHeader-breadcrumb">
+    <ol>
+      
+        
+          <li data-test-id="UnitHeader-breadcrumbItem">
+            <a href="/" data-gtmc="breadcrumb link">Discover Packages</a>
+          </li>
+        
+          <li data-test-id="UnitHeader-breadcrumbItem">
+            <a href="/github.com/pzentenoe/gorm-connection" data-gtmc="breadcrumb link">github.com/pzentenoe/gorm-connection</a>
+          </li>
+        
+        <li>
+          <a href="/github.com/pzentenoe/gorm-connection@v0.0.0/sql" data-gtmc="breadcrumb link" aria-current="location"
+              data-test-id="UnitHeader-breadcrumbCurrent">
+            sql
+          </a>
+          
+            <button
+              class="go-Button go-Button--inline go-Clipboard js-clipboard"
+              title="Copy path to clipboard.&#10;&#10;github.com/pzentenoe/gorm-connection/sql"
+              aria-label="Copy Path to Clipboard"
+              data-to-copy="github.com/pzentenoe/gorm-connection/sql"
+              data-gtmc="breadcrumbs button"
+            >
+              <img
+                class="go-Icon go-Icon--accented"
+                height="24"
+                width="24"
+                src="/static/shared/icon/content_copy_gm_grey_24dp.svg"
+                alt=""
+              >
+            </button>
+          
+        
+      </li>
+    </ol>
+  </nav>
+
+  <div class="go-Main-headerContent">
+    
+  <div class="go-Main-headerTitle js-stickyHeader">
+    <a class="go-Main-headerLogo" href="/" aria-hidden="true" tabindex="-1" data-gtmc="header link" aria-label="Link to Go Homepage">
+      <img height="78" width="207" src="/static/shared/logo/go-blue.svg" alt="Go">
+    </a>
+    <h1 class="UnitHeader-titleHeading" data-test-id="UnitHeader-title">sql</h1>
+    
+      <span class="go-Chip go-Chip--inverted">package</span>
+    
+    
+      
+        <button
+          class="go-Button go-Button--inline go-Clipboard js-clipboard"
+          title="Copy path to clipboard.&#10;&#10;github.com/pzentenoe/gorm-connection/sql"
+          aria-label="Copy Path to Clipboard"
+          data-to-copy="github.com/pzentenoe/gorm-connection/sql"
+          data-gtmc="title button"
+          tabindex="-1"
+        >
+          <img
+            class="go-Icon go-Icon--accented"
+            height="24"
+            width="24"
+            src="/static/shared/icon/content_copy_gm_grey_24dp.svg"
+            alt=""
+          />
+        </button>
+      
+    
+  </div>
+
+    
+  <div class="go-Main-headerDetails">
+    
+      
+  <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-version">
+    <a href="?tab=versions" aria-label="Version: v0.0.0" 
+    data-gtmc="header link" aria-describedby="version-description">
+      <span class="go-textSubtle" aria-hidden="true">Version: </span>
+        v0.0.0
+    </a>
+    <div class="screen-reader-only" id="version-description" hidden>
+      Opens a new window with list of versions in this module.
+    </div>
+    
+    <span class="DetailsHeader-badge--unknown" data-test-id="UnitHeader-minorVersionBanner">
+      <span class="go-Chip DetailsHeader-span--latest">Latest</span>
+      <span class="go-Chip DetailsHeader-span--notAtLatest">
+        Latest
+        
+  <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
+    <summary>
+      <img class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/alert_gm_grey_24dp.svg" alt="Warning">
+    </summary>
+    <p>This package is not in the latest version of its module.</p>
+  </details>
+
+      </span>
+      <a href="/github.com/pzentenoe/gorm-connection/sql" aria-label="Go to Latest Version" data-gtmc="header link">
+        <span class="go-Chip go-Chip--alert DetailsHeader-span--goToLatest">Go to latest</span>
+      </a>
+    </span>
+  </span>
+
+      
+  <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-commitTime">
+    Published: May 30, 2024
+  </span>
+
+      
+  <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-licenses">
+    License: <a href="/github.com/pzentenoe/gorm-connection/sql?tab=licenses" data-test-id="UnitHeader-license" 
+        data-gtmc="header link" aria-describedby="license-description">MIT</a>
+      
+    
+  </span>
+  <div class="screen-reader-only" id="license-description" hidden>
+    Opens a new window with license information.
+  </div>
+
+      
+        
+  <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-imports">
+    <a href="/github.com/pzentenoe/gorm-connection/sql?tab=imports" aria-label="Imports: 0"
+        data-gtmc="header link" aria-describedby="imports-description">
+      <span class="go-textSubtle">Imports: </span>0
+    </a>
+  </span>
+  <div class="screen-reader-only" id="imports-description" hidden>
+    Opens a new window with list of imports.
+  </div>
+
+        
+  <span class="go-Main-headerDetailItem" data-test-id="UnitHeader-importedby">
+    <a href="/github.com/pzentenoe/gorm-connection/sql?tab=importedby" aria-label="Imported By: 0"
+        data-gtmc="header link" aria-describedby="importedby-description">
+       <span class="go-textSubtle">Imported by: </span>0
+    </a>
+  </span>
+  <div class="screen-reader-only" id="importedby-description" hidden>
+    Opens a new window with list of known importers.
+  </div>
+
+      
+    
+  </div>
+  
+  <div class="UnitHeader-overflowContainer">
+    <svg class="UnitHeader-overflowImage" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+    </svg>
+    <select class="UnitHeader-overflowSelect js-selectNav" tabindex="-1">
+      <option value="/">Main</option>
+      <option value="/github.com/pzentenoe/gorm-connection/sql?tab=versions">
+        Versions
+      </option>
+      <option value="/github.com/pzentenoe/gorm-connection/sql?tab=licenses">
+        Licenses
+      </option>
+      
+        <option value="/github.com/pzentenoe/gorm-connection/sql?tab=imports">
+          Imports
+        </option>
+        <option value="/github.com/pzentenoe/gorm-connection/sql?tab=importedby">
+          Imported By
+        </option>
+      
+    </select>
+  </div>
 
 
+  </div>
 
-<div id="page" class="wide">
-<div class="container">
+</header>
+    <aside class="go-Main-aside  js-mainAside">
+  
+  <div class="UnitMeta">
+    <h2 class="go-textLabel">Details</h2>
+    
+  <ul class="UnitMeta-details">
+    <li>
+      <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
+        <summary class="go-textSubtle">
+          
+  <img class="go-Icon go-Icon--accented"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked"height="24" width="24">
 
+          Valid <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection//go.mod" target="_blank" rel="noopener">go.mod</a> file
+          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+        </summary>
+        <p>
+          The Go module system was introduced in Go 1.11 and is the official dependency management
+          solution for Go.
+        </p>
+      </details>
+    </li>
+    <li>
+      <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
+        <summary class="go-textSubtle">
+          
+  <img class="go-Icon go-Icon--accented"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked"height="24" width="24">
 
-  <h1>
-    Package sql
-    <span class="text-muted"></span>
-  </h1>
+          Redistributable license
+          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+        </summary>
+        <p>
+          Redistributable licenses place minimal restrictions on how software can be used,
+          modified, and redistributed.
+        </p>
+      </details>
+    </li>
+    <li>
+      <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
+        <summary class="go-textSubtle">
+          
+  <img class="go-Icon go-Icon--accented"src="/static/shared/icon/check_circle_gm_grey_24dp.svg" alt="checked"height="24" width="24">
 
+          Tagged version
+          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+        </summary>
+        <p>Modules with tagged versions give importers more predictable builds.</p>
+      </details>
+    </li>
+    <li>
+      <details class="go-Tooltip js-tooltip" data-gtmc="tooltip">
+        <summary class="go-textSubtle">
+          
+  <img class="go-Icon"src="/static/shared/icon/cancel_gm_grey_24dp.svg" alt="unchecked"height="24" width="24">
 
+          Stable version
+          <img class="go-Icon" src="/static/shared/icon/help_gm_grey_24dp.svg" alt="" height="24" width="24">
+        </summary>
+        <p>When a project reaches major version v1 it is considered stable.</p>
+      </details>
+    </li>
+    <li class="UnitMeta-detailsLearn">
+      <a href="/about#best-practices" data-gtmc="meta link">Learn more about best practices</a>
+    </li>
+  </ul>
 
+    <h2 class="go-textLabel">Repository</h2>
+    <div class="UnitMeta-repo">
+      
+        <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/" title="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/" target="_blank" rel="noopener">
+          /files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/
+        </a>
+      
+    </div>
+    
+  </div>
 
+</aside>
+    <nav class="go-Main-nav go-Main-nav--sticky js-mainNav" aria-label="Outline">
+  <div class="go-Main-navDesktop">
+    
+  <div class="UnitOutline-jumpTo">
+    <button class="UnitOutline-jumpToInput go-ShortcutKey js-jumpToInput"
+        aria-controls="jump-to-modal"
+        aria-label="Open Jump to Identifier"
+        data-shortcut="f"
+        data-shortcut-alt="find"
+        data-test-id="jump-to-button" data-gtmc="outline button">
+      Jump to ...
+    </button>
+  </div>
+  <ul class="go-Tree js-tree" role="tree" aria-label="Outline">
+    
+    
+      <li>
+        <a href="#section-documentation" data-gtmc="outline link">
+          Documentation
+        </a>
+        
+<ul>
+  <li class="DocNav-overview">
+      <a href="#pkg-index" data-gtmc="doc outline link">
+        Index
+      </a>
+      
+    </li>
+    <li class="DocNav-constants">
+      <a href="#pkg-constants" data-gtmc="doc outline link">
+        Constants
+      </a>
+    </li>
+    <li class="DocNav-variables">
+      <a href="#pkg-variables" data-gtmc="doc outline link">
+        Variables
+      </a>
+    </li>
+    <li class="DocNav-functions">
+      <a href="#pkg-functions" data-gtmc="doc outline link">
+        Functions
+      </a>
+      
+        <ul>
+          
+            <li>
+              <a href="#Paginate" title="Paginate(page, pageSize)" data-gtmc="doc outline link">
+                Paginate(page, pageSize)
+              </a>
+            </li>
+          
+        </ul>
+      
+    </li>
+    <li class="DocNav-types">
+      <a href="#pkg-types" data-gtmc="doc outline link">
+        Types
+      </a>
+      <ul>
+        
+          
+          <li>
+            <a href="#Connection" title="type Connection" data-gtmc="doc outline link">
+              type Connection
+            </a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="#NewSQLConnection" title="NewSQLConnection(opts)"
+                        data-gtmc="doc outline link">
+                      NewSQLConnection(opts)
+                    </a>
+                  </li>
+                
+                
+              </ul>
+             
+          </li>
+        
+          
+          <li>
+            <a href="#DBConnection" title="type DBConnection" data-gtmc="doc outline link">
+              type DBConnection
+            </a>
+            
+              <ul>
+                
+                
+                  <li>
+                    <a href="#DBConnection.GetConnection" title="(r) GetConnection()"
+                        data-gtmc="doc outline link">
+                      (r) GetConnection()
+                    </a>
+                  </li>
+                
+              </ul>
+             
+          </li>
+        
+          
+          <li>
+            <a href="#DBOption" title="type DBOption" data-gtmc="doc outline link">
+              type DBOption
+            </a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="#Config" title="Config()"
+                        data-gtmc="doc outline link">
+                      Config()
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#MergeOptions" title="MergeOptions(opts)"
+                        data-gtmc="doc outline link">
+                      MergeOptions(opts)
+                    </a>
+                  </li>
+                
+                
+                  <li>
+                    <a href="#DBOption.ConnMaxIdleTime" title="(c) ConnMaxIdleTime(connMaxIdleTime)"
+                        data-gtmc="doc outline link">
+                      (c) ConnMaxIdleTime(connMaxIdleTime)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.ConnMaxLifetime" title="(c) ConnMaxLifetime(connMaxLifetime)"
+                        data-gtmc="doc outline link">
+                      (c) ConnMaxLifetime(connMaxLifetime)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.DatabaseName" title="(c) DatabaseName(databaseName)"
+                        data-gtmc="doc outline link">
+                      (c) DatabaseName(databaseName)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.Host" title="(c) Host(host)"
+                        data-gtmc="doc outline link">
+                      (c) Host(host)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.MaxIdleConns" title="(c) MaxIdleConns(maxIdleConns)"
+                        data-gtmc="doc outline link">
+                      (c) MaxIdleConns(maxIdleConns)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.MaxOpenConns" title="(c) MaxOpenConns(maxOpenConns)"
+                        data-gtmc="doc outline link">
+                      (c) MaxOpenConns(maxOpenConns)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.Password" title="(c) Password(password)"
+                        data-gtmc="doc outline link">
+                      (c) Password(password)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.Port" title="(c) Port(port)"
+                        data-gtmc="doc outline link">
+                      (c) Port(port)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.SetSQLDialect" title="(c) SetSQLDialect(sqlDialect)"
+                        data-gtmc="doc outline link">
+                      (c) SetSQLDialect(sqlDialect)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.Timezone" title="(c) Timezone(timezone)"
+                        data-gtmc="doc outline link">
+                      (c) Timezone(timezone)
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#DBOption.User" title="(c) User(user)"
+                        data-gtmc="doc outline link">
+                      (c) User(user)
+                    </a>
+                  </li>
+                
+              </ul>
+             
+          </li>
+        
+          
+          <li>
+            <a href="#SQLDialect" title="type SQLDialect" data-gtmc="doc outline link">
+              type SQLDialect
+            </a>
+             
+          </li>
+         
+      </ul>
+    </li>
+  
+  
+</ul>
 
+      </li>
+    
+    
+      <li>
+        <a href="#section-sourcefiles" data-gtmc="outline link">
+          Source Files
+        </a>
+      </li>
+    
+    
+  </ul>
 
+  </div>
+  <div class="go-Main-navMobile js-mainNavMobile">
+    <label class="go-Label">
+      <select class="go-Select">
+        
+          <option selected disabled>Documentation</option>
+        
+      </select>
+    </label>
+  </div>
+</nav>
+    <article class="go-Main-article js-mainContent">
+  <div class="UnitDetails" data-test-id="UnitDetails" style="display: block;">
+    <div class="UnitDetails-content js-unitDetailsContent" data-test-id="UnitDetails-content">
+      
+      
+        
+          
+  <div class="UnitDoc">
+    <h2 class="UnitDoc-title" id="section-documentation">
+      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/code_gm_grey_24dp.svg" alt="">
+      Documentation
+      <a class="UnitDoc-idLink" href="#section-documentation" aria-label="Go to Documentation">¶</a>
+    </h2>
+    
+  
+    
+  
 
-<div id="nav"></div>
+    <div class="Documentation js-documentation">
+      
+        
 
+<div class="Documentation-content js-docContent"> <section class="Documentation-index">
+    <h3 id="pkg-index" class="Documentation-indexHeader">Index <a href="#pkg-index" aria-label="Go to Index">¶</a></h3>
 
-<!--
-	Copyright 2009 The Go Authors. All rights reserved.
-	Use of this source code is governed by a BSD-style
-	license that can be found in the LICENSE file.
--->
-<!--
-	Note: Static (i.e., not template-generated) href and id
-	attributes start with "pkg-" to make it impossible for
-	them to conflict with generated attributes (some of which
-	correspond to Go identifiers).
--->
+<ul class="Documentation-indexList">
+<li class="Documentation-indexVariables"><a href="#pkg-variables">Variables</a></li>
+<li class="Documentation-indexFunction">
+        <a href="#Paginate">func Paginate(page, pageSize int) func(db *gorm.DB) *gorm.DB</a></li>
+<li class="Documentation-indexType">
+          <a href="#Connection">type Connection</a></li>
+<li><ul class="Documentation-indexTypeFunctions">
+<li>
+            <a href="#NewSQLConnection">func NewSQLConnection(opts ...*DBOption) (Connection, error)</a></li>
+</ul></li>
+<li class="Documentation-indexType">
+          <a href="#DBConnection">type DBConnection</a></li>
+<li><ul class="Documentation-indexTypeMethods">
+<li>
+            <a href="#DBConnection.GetConnection">func (r *DBConnection) GetConnection() (*gorm.DB, error)</a></li>
+</ul></li>
+<li class="Documentation-indexType">
+          <a href="#DBOption">type DBOption</a></li>
+<li><ul class="Documentation-indexTypeFunctions">
+<li>
+            <a href="#Config">func Config() *DBOption</a></li>
+<li>
+            <a href="#MergeOptions">func MergeOptions(opts ...*DBOption) (*DBOption, error)</a></li>
+</ul></li>
+<li><ul class="Documentation-indexTypeMethods">
+<li>
+            <a href="#DBOption.ConnMaxIdleTime">func (c *DBOption) ConnMaxIdleTime(connMaxIdleTime time.Duration) *DBOption</a></li>
+<li>
+            <a href="#DBOption.ConnMaxLifetime">func (c *DBOption) ConnMaxLifetime(connMaxLifetime time.Duration) *DBOption</a></li>
+<li>
+            <a href="#DBOption.DatabaseName">func (c *DBOption) DatabaseName(databaseName string) *DBOption</a></li>
+<li>
+            <a href="#DBOption.Host">func (c *DBOption) Host(host string) *DBOption</a></li>
+<li>
+            <a href="#DBOption.MaxIdleConns">func (c *DBOption) MaxIdleConns(maxIdleConns int) *DBOption</a></li>
+<li>
+            <a href="#DBOption.MaxOpenConns">func (c *DBOption) MaxOpenConns(maxOpenConns int) *DBOption</a></li>
+<li>
+            <a href="#DBOption.Password">func (c *DBOption) Password(password string) *DBOption</a></li>
+<li>
+            <a href="#DBOption.Port">func (c *DBOption) Port(port int) *DBOption</a></li>
+<li>
+            <a href="#DBOption.SetSQLDialect">func (c *DBOption) SetSQLDialect(sqlDialect SQLDialect) *DBOption</a></li>
+<li>
+            <a href="#DBOption.Timezone">func (c *DBOption) Timezone(timezone string) *DBOption</a></li>
+<li>
+            <a href="#DBOption.User">func (c *DBOption) User(user string) *DBOption</a></li>
+</ul></li>
+<li class="Documentation-indexType">
+          <a href="#SQLDialect">type SQLDialect</a></li>
+</ul>
+</section><h3 tabindex="-1" id="pkg-constants" class="Documentation-constantsHeader">Constants <a href="#pkg-constants" aria-label="Go to Constants">¶</a></h3>
 
-	<script>
-	document.ANALYSIS_DATA = null;
-	document.CALLGRAPH = null;
-	</script>
+  <section class="Documentation-constants"><p class="Documentation-empty">This section is empty.</p></section>
 
-	
-		
-		<div id="short-nav">
-			<dl>
-			<dd><code>import "github.com/pzentenoe/gorm-connection/sql"</code></dd>
-			</dl>
-			<dl>
-			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
-			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
-			
-			
-			</dl>
-		</div>
-		<!-- The package's Name is printed as title by the top-level template -->
-		<div id="pkg-overview" class="toggleVisible">
-			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
-			</div>
-			<div class="expanded">
-				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				
-				
-			</div>
-		</div>
+  <h3 tabindex="-1" id="pkg-variables" class="Documentation-variablesHeader">Variables <a href="#pkg-variables" aria-label="Go to Variables">¶</a></h3>
 
-		<div id="pkg-index" class="toggleVisible">
-		<div class="collapsed">
-			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
-		</div>
-		<div class="expanded">
-			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+  <section class="Documentation-variables">
+    <div class="Documentation-declaration">
+      <span class="Documentation-declarationLink"><a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L215">View Source</a></span>
+      <pre>var (
+<span id="SQLServer" data-kind="variable">	SQLServer = <a href="#SQLDialect">SQLDialect</a>{Name: &#34;mssql&#34;, DefaultPort: 1433}
+</span><span id="MySQL" data-kind="variable">	MySQL     = <a href="#SQLDialect">SQLDialect</a>{Name: &#34;mysql&#34;, DefaultPort: 3306}
+</span><span id="Postgres" data-kind="variable">	Postgres  = <a href="#SQLDialect">SQLDialect</a>{Name: &#34;postgres&#34;, DefaultPort: 5432}
+</span><span id="SQLite" data-kind="variable">	SQLite    = <a href="#SQLDialect">SQLDialect</a>{Name: &#34;sqlite3&#34;}
+</span>)</pre>
+    </div>
+  <p>SQL Dialects
+</p>
+</section>
 
-		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
-			<div id="manual-nav">
-			<dl>
-			
-			
-				<dd><a href="#pkg-variables">Variables</a></dd>
-			
-			
-				
-				<dd><a href="#Paginate">func Paginate(page, pageSize int) func(db *gorm.DB) *gorm.DB</a></dd>
-			
-			
-				
-				<dd><a href="#Connection">type Connection</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#NewSQLConnection">func NewSQLConnection(opts ...*DBOption) (Connection, error)</a></dd>
-				
-				
-			
-				
-				<dd><a href="#DBConnection">type DBConnection</a></dd>
-				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBConnection.GetConnection">func (r *DBConnection) GetConnection() (*gorm.DB, error)</a></dd>
-				
-			
-				
-				<dd><a href="#DBOption">type DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#Config">func Config() *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#MergeOptions">func MergeOptions(opts ...*DBOption) (*DBOption, error)</a></dd>
-				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.ConnMaxIdleTime">func (c *DBOption) ConnMaxIdleTime(connMaxIdleTime time.Duration) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.ConnMaxLifetime">func (c *DBOption) ConnMaxLifetime(connMaxLifetime time.Duration) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.DatabaseName">func (c *DBOption) DatabaseName(databaseName string) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Host">func (c *DBOption) Host(host string) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.MaxIdleConns">func (c *DBOption) MaxIdleConns(maxIdleConns int) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.MaxOpenConns">func (c *DBOption) MaxOpenConns(maxOpenConns int) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Password">func (c *DBOption) Password(password string) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Port">func (c *DBOption) Port(port int) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.SetSQLDialect">func (c *DBOption) SetSQLDialect(sqlDialect SQLDialect) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Timezone">func (c *DBOption) Timezone(timezone string) *DBOption</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.User">func (c *DBOption) User(user string) *DBOption</a></dd>
-				
-			
-				
-				<dd><a href="#SQLDialect">type SQLDialect</a></dd>
-				
-				
-			
-			
-			</dl>
-			</div><!-- #manual-nav -->
+  <h3 tabindex="-1" id="pkg-functions" class="Documentation-functionsHeader">Functions <a href="#pkg-functions" aria-label="Go to Functions">¶</a></h3>
 
-		
+  <section class="Documentation-functions"><div class="Documentation-function">
+	  
+  
+  
+    <h4 tabindex="-1" id="Paginate" data-kind="function" class="Documentation-functionHeader">
+      <span>func <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/pagination.go#L11">Paginate</a> <a class="Documentation-idLink" href="#Paginate" aria-label="Go to Paginate">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-		
-			<h3>Package files</h3>
-			<p>
-			<span style="font-size:90%">
-			
-				<a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go">db_connection.go</a>
-			
-				<a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go">db_options.go</a>
-			
-				<a href="/src/github.com/pzentenoe/gorm-connection/sql/pagination.go">pagination.go</a>
-			
-			</span>
-			</p>
-		
-		</div><!-- .expanded -->
-		</div><!-- #pkg-index -->
+    
+    <div class="Documentation-declaration">
+      <pre>func Paginate(page, pageSize <a href="/builtin#int">int</a>) func(db *<a href="/gorm.io/gorm">gorm</a>.<a href="/gorm.io/gorm#DB">DB</a>) *<a href="/gorm.io/gorm">gorm</a>.<a href="/gorm.io/gorm#DB">DB</a></pre>
+    </div>
+  <p>Paginate returns a GORM scope function to apply pagination.
+</p>
 
-		
+  
 
-		
-		
-			<h2 id="pkg-variables">Variables</h2>
-			
-				<p>SQL Dialects
+        </div></section>
 
-				<pre>var (
-    <span id="SQLServer">SQLServer</span> = <a href="#SQLDialect">SQLDialect</a>{<a href="#SQLDialect.Name">Name</a>: &#34;mssql&#34;, <a href="#SQLDialect.DefaultPort">DefaultPort</a>: 1433}
-    <span id="MySQL">MySQL</span>     = <a href="#SQLDialect">SQLDialect</a>{<a href="#SQLDialect.Name">Name</a>: &#34;mysql&#34;, <a href="#SQLDialect.DefaultPort">DefaultPort</a>: 3306}
-    <span id="Postgres">Postgres</span>  = <a href="#SQLDialect">SQLDialect</a>{<a href="#SQLDialect.Name">Name</a>: &#34;postgres&#34;, <a href="#SQLDialect.DefaultPort">DefaultPort</a>: 5432}
-    <span id="SQLite">SQLite</span>    = <a href="#SQLDialect">SQLDialect</a>{<a href="#SQLDialect.Name">Name</a>: &#34;sqlite3&#34;}
-)</pre>
-			
-		
-		
-			
-			
-			<h2 id="Paginate">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/pagination.go?s=147:207#L1">Paginate</a>
-				<a class="permalink" href="#Paginate">&#xb6;</a>
-				
-				
-			</h2>
-			<pre>func Paginate(page, pageSize <a href="/pkg/builtin/#int">int</a>) func(db *<a href="/pkg/gorm.io/gorm/">gorm</a>.<a href="/pkg/gorm.io/gorm/#DB">DB</a>) *<a href="/pkg/gorm.io/gorm/">gorm</a>.<a href="/pkg/gorm.io/gorm/#DB">DB</a></pre>
-			<p>Paginate returns a GORM scope function to apply pagination.
+  <h3 tabindex="-1" id="pkg-types" class="Documentation-typesHeader">Types <a href="#pkg-types" aria-label="Go to Types">¶</a></h3>
 
-			
-			
+  <section class="Documentation-types"><div class="Documentation-type">
+      
+  
+  
+    <h4 tabindex="-1" id="Connection" data-kind="type" class="Documentation-typeHeader">
+      <span>type <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_connection.go#L15">Connection</a> <a class="Documentation-idLink" href="#Connection" aria-label="Go to Connection">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-		
-		
-			
-			
-			<h2 id="Connection">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=198:262#L5">Connection</a>
-				<a class="permalink" href="#Connection">&#xb6;</a>
-				
-				
-			</h2>
-			<p>Connection is an interface that defines the method to get a database connection.
+    
+    <div class="Documentation-declaration">
+      <pre>type Connection interface {
+<span id="Connection.GetConnection" data-kind="method">	GetConnection() (*<a href="/gorm.io/gorm">gorm</a>.<a href="/gorm.io/gorm#DB">DB</a>, <a href="/builtin#error">error</a>)
+</span>}</pre>
+    </div>
+  <p>Connection is an interface that defines the method to get a database connection.
+</p>
+<div class="Documentation-typeFunc">
+    
+  
+  
+    <h4 tabindex="-1" id="NewSQLConnection" data-kind="function" class="Documentation-typeFuncHeader">
+      <span>func <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_connection.go#L28">NewSQLConnection</a> <a class="Documentation-idLink" href="#NewSQLConnection" aria-label="Go to NewSQLConnection">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			<pre>type Connection interface {
-    GetConnection() (*<a href="/pkg/gorm.io/gorm/">gorm</a>.<a href="/pkg/gorm.io/gorm/#DB">DB</a>, <a href="/pkg/builtin/#error">error</a>)
-}</pre>
-
-			
-
-			
-
-			
-			
-			
-
-			
-				
-				<h3 id="NewSQLConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=632:692#L18">NewSQLConnection</a>
-					<a class="permalink" href="#NewSQLConnection">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func NewSQLConnection(opts ...*<a href="#DBOption">DBOption</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
-				<p>NewSQLConnection creates a new SQL database connection based on the provided options.
+    
+    <div class="Documentation-declaration">
+      <pre>func NewSQLConnection(opts ...*<a href="#DBOption">DBOption</a>) (<a href="#Connection">Connection</a>, <a href="/builtin#error">error</a>)</pre>
+    </div>
+  <p>NewSQLConnection creates a new SQL database connection based on the provided options.
 It merges the provided options and initializes the dialector. If the dialector is empty, it returns an error.
+</p>
 
-				
-				
-			
+  
 
-			
-		
-			
-			
-			<h2 id="DBConnection">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=330:428#L10">DBConnection</a>
-				<a class="permalink" href="#DBConnection">&#xb6;</a>
-				
-				
-			</h2>
-			<p>DBConnection holds the details for connecting to the database.
+  </div>
+  
 
-			<pre>type DBConnection struct {
-    <span class="comment">// contains filtered or unexported fields</span>
-}
-</pre>
+    </div><div class="Documentation-type">
+      
+  
+  
+    <h4 tabindex="-1" id="DBConnection" data-kind="type" class="Documentation-typeHeader">
+      <span>type <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_connection.go#L20">DBConnection</a> <a class="Documentation-idLink" href="#DBConnection" aria-label="Go to DBConnection">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			
+    
+    <div class="Documentation-declaration">
+      <pre>type DBConnection struct {
+	<span class="comment">// contains filtered or unexported fields</span>
+}</pre>
+    </div>
+  <p>DBConnection holds the details for connecting to the database.
+</p>
+<div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBConnection.GetConnection" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBConnection) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_connection.go#L45">GetConnection</a> <a class="Documentation-idLink" href="#DBConnection.GetConnection" aria-label="Go to DBConnection.GetConnection">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			
-
-			
-			
-			
-
-			
-
-			
-				
-				<h3 id="DBConnection.GetConnection">func (*DBConnection) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=1256:1312#L35">GetConnection</a>
-					<a class="permalink" href="#DBConnection.GetConnection">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (r *<a href="#DBConnection">DBConnection</a>) GetConnection() (*<a href="/pkg/gorm.io/gorm/">gorm</a>.<a href="/pkg/gorm.io/gorm/#DB">DB</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
-				<p>GetConnection establishes and returns a GORM DB connection. If the connection is already established, it returns the existing one.
+    
+    <div class="Documentation-declaration">
+      <pre>func (r *<a href="#DBConnection">DBConnection</a>) GetConnection() (*<a href="/gorm.io/gorm">gorm</a>.<a href="/gorm.io/gorm#DB">DB</a>, <a href="/builtin#error">error</a>)</pre>
+    </div>
+  <p>GetConnection establishes and returns a GORM DB connection. If the connection is already established, it returns the existing one.
 It sets up the logger, connection pool configurations, and handles errors during the connection process.
+</p>
 
-				
-				
-				
-			
-		
-			
-			
-			<h2 id="DBOption">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=439:746#L13">DBOption</a>
-				<a class="permalink" href="#DBOption">&#xb6;</a>
-				
-				
-			</h2>
-			<p>DBOption holds the configuration for database connection
+  
 
-			<pre>type DBOption struct {
-    <span class="comment">// contains filtered or unexported fields</span>
-}
-</pre>
+  </div>
+  
 
-			
+    </div><div class="Documentation-type">
+      
+  
+  
+    <h4 tabindex="-1" id="DBOption" data-kind="type" class="Documentation-typeHeader">
+      <span>type <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L23">DBOption</a> <a class="Documentation-idLink" href="#DBOption" aria-label="Go to DBOption">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			
+    
+    <div class="Documentation-declaration">
+      <pre>type DBOption struct {
+	<span class="comment">// contains filtered or unexported fields</span>
+}</pre>
+    </div>
+  <p>DBOption holds the configuration for database connection
+</p>
+<div class="Documentation-typeFunc">
+    
+  
+  
+    <h4 tabindex="-1" id="Config" data-kind="function" class="Documentation-typeFuncHeader">
+      <span>func <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L38">Config</a> <a class="Documentation-idLink" href="#Config" aria-label="Go to Config">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			
-			
-			
+    
+    <div class="Documentation-declaration">
+      <pre>func Config() *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>Config initializes a new DBOption with default values
+</p>
 
-			
-				
-				<h3 id="Config">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=805:828#L28">Config</a>
-					<a class="permalink" href="#Config">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func Config() *<a href="#DBOption">DBOption</a></pre>
-				<p>Config initializes a new DBOption with default values
+  
 
-				
-				
-			
-				
-				<h3 id="MergeOptions">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3497:3552#L111">MergeOptions</a>
-					<a class="permalink" href="#MergeOptions">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func MergeOptions(opts ...*<a href="#DBOption">DBOption</a>) (*<a href="#DBOption">DBOption</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
-				<p>MergeOptions merges multiple DBOption instances into one, applying default values where necessary.
+  </div><div class="Documentation-typeFunc">
+    
+  
+  
+    <h4 tabindex="-1" id="MergeOptions" data-kind="function" class="Documentation-typeFuncHeader">
+      <span>func <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L121">MergeOptions</a> <a class="Documentation-idLink" href="#MergeOptions" aria-label="Go to MergeOptions">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func MergeOptions(opts ...*<a href="#DBOption">DBOption</a>) (*<a href="#DBOption">DBOption</a>, <a href="/builtin#error">error</a>)</pre>
+    </div>
+  <p>MergeOptions merges multiple DBOption instances into one, applying default values where necessary.
 It returns the merged DBOption and an error if any mandatory option is missing or invalid.
+</p>
 
-				
-				
-			
+  
 
-			
-				
-				<h3 id="DBOption.ConnMaxIdleTime">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3172:3247#L104">ConnMaxIdleTime</a>
-					<a class="permalink" href="#DBOption.ConnMaxIdleTime">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxIdleTime(connMaxIdleTime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>ConnMaxIdleTime sets the maximum amount of time a connection may be idle before being closed.
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.ConnMaxIdleTime" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L114">ConnMaxIdleTime</a> <a class="Documentation-idLink" href="#DBOption.ConnMaxIdleTime" aria-label="Go to DBOption.ConnMaxIdleTime">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxIdleTime(connMaxIdleTime <a href="/time">time</a>.<a href="/time#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>ConnMaxIdleTime sets the maximum amount of time a connection may be idle before being closed.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.ConnMaxLifetime">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2896:2971#L97">ConnMaxLifetime</a>
-					<a class="permalink" href="#DBOption.ConnMaxLifetime">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxLifetime(connMaxLifetime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>ConnMaxLifetime sets the maximum amount of time a connection may be reused.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.ConnMaxLifetime" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L107">ConnMaxLifetime</a> <a class="Documentation-idLink" href="#DBOption.ConnMaxLifetime" aria-label="Go to DBOption.ConnMaxLifetime">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxLifetime(connMaxLifetime <a href="/time">time</a>.<a href="/time#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>ConnMaxLifetime sets the maximum amount of time a connection may be reused.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.DatabaseName">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1210:1272#L41">DatabaseName</a>
-					<a class="permalink" href="#DBOption.DatabaseName">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) DatabaseName(databaseName <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>DatabaseName sets the name of the database to connect to.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.DatabaseName" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L51">DatabaseName</a> <a class="Documentation-idLink" href="#DBOption.DatabaseName" aria-label="Go to DBOption.DatabaseName">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) DatabaseName(databaseName <a href="/builtin#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>DatabaseName sets the name of the database to connect to.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Host">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1424:1470#L48">Host</a>
-					<a class="permalink" href="#DBOption.Host">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Host(host <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Host sets the host address of the database server.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.Host" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L58">Host</a> <a class="Documentation-idLink" href="#DBOption.Host" aria-label="Go to DBOption.Host">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) Host(host <a href="/builtin#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>Host sets the host address of the database server.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.MaxIdleConns">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2426:2485#L83">MaxIdleConns</a>
-					<a class="permalink" href="#DBOption.MaxIdleConns">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) MaxIdleConns(maxIdleConns <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>MaxIdleConns sets the maximum number of idle connections in the connection pool.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.MaxIdleConns" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L93">MaxIdleConns</a> <a class="Documentation-idLink" href="#DBOption.MaxIdleConns" aria-label="Go to DBOption.MaxIdleConns">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) MaxIdleConns(maxIdleConns <a href="/builtin#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>MaxIdleConns sets the maximum number of idle connections in the connection pool.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.MaxOpenConns">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2660:2719#L90">MaxOpenConns</a>
-					<a class="permalink" href="#DBOption.MaxOpenConns">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) MaxOpenConns(maxOpenConns <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>MaxOpenConns sets the maximum number of open connections to the database.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.MaxOpenConns" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L100">MaxOpenConns</a> <a class="Documentation-idLink" href="#DBOption.MaxOpenConns" aria-label="Go to DBOption.MaxOpenConns">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) MaxOpenConns(maxOpenConns <a href="/builtin#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>MaxOpenConns sets the maximum number of open connections to the database.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Password">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1984:2038#L69">Password</a>
-					<a class="permalink" href="#DBOption.Password">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Password(password <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Password sets the password for database authentication.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.Password" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L79">Password</a> <a class="Documentation-idLink" href="#DBOption.Password" aria-label="Go to DBOption.Password">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) Password(password <a href="/builtin#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>Password sets the password for database authentication.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Port">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1617:1660#L55">Port</a>
-					<a class="permalink" href="#DBOption.Port">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Port(port <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Port sets the port on which the database server is listening.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.Port" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L65">Port</a> <a class="Documentation-idLink" href="#DBOption.Port" aria-label="Go to DBOption.Port">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) Port(port <a href="/builtin#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>Port sets the port on which the database server is listening.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.SetSQLDialect">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=991:1056#L34">SetSQLDialect</a>
-					<a class="permalink" href="#DBOption.SetSQLDialect">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) SetSQLDialect(sqlDialect <a href="#SQLDialect">SQLDialect</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>SetSQLDialect sets the SQL dialect to be used (e.g., SQLServer, MySQL, Postgres).
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.SetSQLDialect" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L44">SetSQLDialect</a> <a class="Documentation-idLink" href="#DBOption.SetSQLDialect" aria-label="Go to DBOption.SetSQLDialect">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) SetSQLDialect(sqlDialect <a href="#SQLDialect">SQLDialect</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>SetSQLDialect sets the SQL dialect to be used (e.g., SQLServer, MySQL, Postgres).
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Timezone">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2198:2252#L76">Timezone</a>
-					<a class="permalink" href="#DBOption.Timezone">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Timezone(timezone <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Timezone sets the timezone to be used for the database connection.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.Timezone" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L86">Timezone</a> <a class="Documentation-idLink" href="#DBOption.Timezone" aria-label="Go to DBOption.Timezone">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) Timezone(timezone <a href="/builtin#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>Timezone sets the timezone to be used for the database connection.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-				
-				<h3 id="DBOption.User">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1797:1843#L62">User</a>
-					<a class="permalink" href="#DBOption.User">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) User(user <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>User sets the username for database authentication.
+  
+
+  </div><div class="Documentation-typeMethod">
+    
+  
+  
+    <h4 tabindex="-1" id="DBOption.User" data-kind="method" class="Documentation-typeMethodHeader">
+      <span>func (*DBOption) <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L72">User</a> <a class="Documentation-idLink" href="#DBOption.User" aria-label="Go to DBOption.User">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
+
+    
+    <div class="Documentation-declaration">
+      <pre>func (c *<a href="#DBOption">DBOption</a>) User(user <a href="/builtin#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
+    </div>
+  <p>User sets the username for database authentication.
 It returns the modified DBOption for chaining.
+</p>
 
-				
-				
-				
-			
-		
-			
-			
-			<h2 id="SQLDialect">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=5608:5671#L199">SQLDialect</a>
-				<a class="permalink" href="#SQLDialect">&#xb6;</a>
-				
-				
-			</h2>
-			<p>SQLDialect represents a SQL dialect with its name and default port
+  
 
-			<pre>type SQLDialect struct {
-<span id="SQLDialect.Name"></span>    Name        <a href="/pkg/builtin/#string">string</a>
-<span id="SQLDialect.DefaultPort"></span>    DefaultPort <a href="/pkg/builtin/#int">int</a>
-}
-</pre>
+  </div>
+  
 
-			
+    </div><div class="Documentation-type">
+      
+  
+  
+    <h4 tabindex="-1" id="SQLDialect" data-kind="type" class="Documentation-typeHeader">
+      <span>type <a class="Documentation-source" href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go#L209">SQLDialect</a> <a class="Documentation-idLink" href="#SQLDialect" aria-label="Go to SQLDialect">¶</a></span>
+  <span class="Documentation-sinceVersion">
+    
+  </span>
+</h4>
 
-			
+    
+    <div class="Documentation-declaration">
+      <pre>type SQLDialect struct {
+<span id="SQLDialect.Name" data-kind="field">	Name        <a href="/builtin#string">string</a>
+</span><span id="SQLDialect.DefaultPort" data-kind="field">	DefaultPort <a href="/builtin#int">int</a>
+</span>}</pre>
+    </div>
+  <p>SQLDialect represents a SQL dialect with its name and default port
+</p>
 
-			
-			
-			
+  
 
-			
-
-			
-		
-	
-
-	
+    </div></section></div> 
 
 
 
 
 
 
+      
+    </div>
+  </div>
 
-<div id="footer">
-Build version go1.22.3.<br>
-Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-the content of this page is licensed under the
-Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/LICENSE">BSD license</a>.<br>
-<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
-<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
-</div>
+        
+      
+      
+        
+  <div class="UnitFiles js-unitFiles">
+    <h2 class="UnitFiles-title" id="section-sourcefiles">
+      <img class="go-Icon" height="24" width="24" src="/static/shared/icon/insert_drive_file_gm_grey_24dp.svg" alt="">
+      Source Files
+      <a class="UnitFiles-idLink" href="#section-sourcefiles" aria-label="Go to Source Files">¶</a>
+    </h2>
+    <div class="UnitFiles-titleLink">
+      <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql" target="_blank" rel="noopener">View all Source files</a>
+    </div>
+    <div>
+      <ul class="UnitFiles-fileList"><li>
+            <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_connection.go" target="_blank" rel="noopener" title="db_connection.go">db_connection.go</a>
+          </li><li>
+            <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/db_options.go" target="_blank" rel="noopener" title="db_options.go">db_options.go</a>
+          </li><li>
+            <a href="/files/home/runner/work/gorm-connection/gorm-connection/github.com/pzentenoe/gorm-connection/sql/pagination.go" target="_blank" rel="noopener" title="pagination.go">pagination.go</a>
+          </li></ul>
+    </div>
+  </div>
 
-</div><!-- .container -->
-</div><!-- #page -->
-</body>
+      
+      
+    </div>
+  </div>
+  <div id="showInternal-description" hidden> Click to show internal directories. </div>
+  <div id="hideInternal-description" hidden> Click to hide internal directories. </div>
+</article>
+    <footer class="go-Main-footer"></footer>
+  </main>
+
+    
+  <footer class="go-Footer">
+    
+    <div class="go-Footer-links">
+      <div class="go-Footer-linkColumn">
+        <a href="https://go.dev/solutions" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
+          Why Go
+        </a>
+        <a href="https://go.dev/solutions#use-cases" class="go-Footer-link"
+            data-gtmc="footer link">
+          Use Cases
+        </a>
+        <a href="https://go.dev/solutions#case-studies" class="go-Footer-link"
+            data-gtmc="footer link">
+          Case Studies
+        </a>
+      </div>
+      <div class="go-Footer-linkColumn">
+        <a href="https://learn.go.dev/" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
+          Get Started
+        </a>
+        <a href="https://play.golang.org" class="go-Footer-link" data-gtmc="footer link">
+          Playground
+        </a>
+        <a href="https://tour.golang.org" class="go-Footer-link" data-gtmc="footer link">
+          Tour
+        </a>
+        <a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="go-Footer-link"
+            data-gtmc="footer link">
+          Stack Overflow
+        </a>
+        <a href="https://go.dev/help" class="go-Footer-link"
+            data-gtmc="footer link">
+          Help
+        </a>
+      </div>
+      <div class="go-Footer-linkColumn">
+        <a href="https://pkg.go.dev" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
+          Packages
+        </a>
+        <a href="/std" class="go-Footer-link" data-gtmc="footer link">
+          Standard Library
+        </a>
+        <a href="/golang.org/x" class="go-Footer-link" data-gtmc="footer link">
+          Sub-repositories
+        </a>
+        <a href="https://pkg.go.dev/about" class="go-Footer-link" data-gtmc="footer link">
+          About Go Packages
+        </a>
+      </div>
+      <div class="go-Footer-linkColumn">
+        <a href="https://go.dev/project" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
+          About
+        </a>
+        <a href="https://go.dev/dl/" class="go-Footer-link" data-gtmc="footer link">Download</a>
+        <a href="https://go.dev/blog" class="go-Footer-link" data-gtmc="footer link">Blog</a>
+        <a href="https://github.com/golang/go/issues" class="go-Footer-link" data-gtmc="footer link">
+          Issue Tracker
+        </a>
+        <a href="https://go.dev/doc/devel/release.html" class="go-Footer-link"
+            data-gtmc="footer link">
+          Release Notes
+        </a>
+        <a href="https://blog.golang.org/go-brand" class="go-Footer-link" data-gtmc="footer link">
+          Brand Guidelines
+        </a>
+        <a href="https://go.dev/conduct" class="go-Footer-link" data-gtmc="footer link">
+          Code of Conduct
+        </a>
+      </div>
+      <div class="go-Footer-linkColumn">
+        <a href="https://www.twitter.com/golang" class="go-Footer-link go-Footer-link--primary"
+            data-gtmc="footer link">
+          Connect
+        </a>
+        <a href="https://www.twitter.com/golang" class="go-Footer-link" data-gtmc="footer link">
+          Twitter
+        </a>
+        <a href="https://github.com/golang" class="go-Footer-link" data-gtmc="footer link">GitHub</a>
+        <a href="https://invite.slack.golangbridge.org/" class="go-Footer-link"
+            data-gtmc="footer link">
+          Slack
+        </a>
+        <a href="https://reddit.com/r/golang" class="go-Footer-link" data-gtmc="footer link">
+          r/golang
+        </a>
+        <a href="https://www.meetup.com/pro/go" class="go-Footer-link" data-gtmc="footer link">
+          Meetup
+        </a>
+        <a href="https://golangweekly.com/" class="go-Footer-link" data-gtmc="footer link">
+          Golang Weekly
+        </a>
+      </div>
+    </div>
+    <div class="go-Footer-bottom">
+      <img class="go-Footer-gopher"  width="1431" height="901"
+          src="/static/shared/gopher/pilot-bust-1431x901.svg" alt="Gopher in flight goggles">
+      <ul class="go-Footer-listRow">
+        <li class="go-Footer-listItem">
+          <a href="https://go.dev/copyright" data-gtmc="footer link">Copyright</a>
+        </li>
+        <li class="go-Footer-listItem">
+          <a href="https://go.dev/tos" data-gtmc="footer link">Terms of Service</a>
+        </li>
+        <li class="go-Footer-listItem">
+          <a href="http://www.google.com/intl/en/policies/privacy/" data-gtmc="footer link"
+              target="_blank" rel="noopener">
+            Privacy Policy
+          </a>
+        </li>
+        <li class="go-Footer-listItem">
+          <a href="https://go.dev/s/pkgsite-feedback" target="_blank" rel="noopener"
+              data-gtmc="footer link">
+            Report an Issue
+          </a>
+        </li>
+        <li class="go-Footer-listItem">
+          <button class="go-Button go-Button--text go-Footer-toggleTheme js-toggleTheme" aria-label="Theme Toggle">
+            <img data-value="auto" class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/brightness_6_gm_grey_24dp.svg" alt="System theme">
+            <img data-value="dark" class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/brightness_2_gm_grey_24dp.svg" alt="Dark theme">
+            <img data-value="light" class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/light_mode_gm_grey_24dp.svg" alt="Light theme">
+            <p> Theme Toggle </p>
+          </button>
+        </li>
+        <li class="go-Footer-listItem">
+          <button class="go-Button go-Button--text go-Footer-keyboard js-openShortcuts" aria-label="Shorcuts Modal">
+            <img class="go-Icon go-Icon--inverted" height="24" width="24" src="/static/shared/icon/keyboard_grey_24dp.svg" alt="">
+            <p> Shortcuts Modal </p>
+          </button>
+        </li>
+      </ul>
+      <a class="go-Footer-googleLogo" href="https://google.com" target="_blank"rel="noopener"
+          data-gtmc="footer link">
+        <img class="go-Footer-googleLogoImg" height="24" width="72"
+            src="/static/shared/logo/google-white.svg" alt="Google logo">
+      </a>
+    </div>
+  </footer>
+
+    
+  <dialog id="jump-to-modal" class="JumpDialog go-Modal go-Modal--md js-modal">
+    <form method="dialog" data-gmtc="jump to form" aria-label="Jump to Identifier">
+      <div class="Dialog-title go-Modal-header">
+        <h2>Jump to</h2>
+        <button
+          class="go-Button go-Button--inline"
+          type="button"
+          data-modal-close
+          data-gtmc="modal button"
+          aria-label="Close"
+        >
+          <img
+            class="go-Icon"
+            height="24"
+            width="24"
+            src="/static/shared/icon/close_gm_grey_24dp.svg"
+            alt=""
+          />
+        </button>
+      </div>
+      <div class="JumpDialog-filter">
+        <input class="JumpDialog-input go-Input" autocomplete="off" type="text">
+      </div>
+      <div class="JumpDialog-body go-Modal-body">
+        <div class="JumpDialog-list"></div>
+      </div>
+      <div class="go-Modal-actions">
+        <button class="go-Button" data-test-id="close-dialog">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="ShortcutsDialog go-Modal go-Modal--sm js-modal">
+    <form method="dialog">
+      <div class="go-Modal-header">
+        <h2>Keyboard shortcuts</h2>
+        <button
+          class="go-Button go-Button--inline"
+          type="button"
+          data-modal-close
+          data-gtmc="modal button"
+          aria-label="Close"
+        >
+          <img
+            class="go-Icon"
+            height="24"
+            width="24"
+            src="/static/shared/icon/close_gm_grey_24dp.svg"
+            alt=""
+          />
+        </button>
+      </div>
+      <div class="go-Modal-body">
+        <table>
+          <tbody>
+            <tr><td class="ShortcutsDialog-key">
+              <strong>?</strong></td><td> : This menu</td>
+            </tr>
+            <tr><td class="ShortcutsDialog-key">
+              <strong>/</strong></td><td> : Search site</td>
+            </tr>
+            <tr><td class="ShortcutsDialog-key">
+              <strong>f</strong> or <strong>F</strong></td><td> : Jump to</td>
+            </tr>
+            <tr>
+              <td class="ShortcutsDialog-key"><strong>y</strong> or <strong>Y</strong></td>
+              <td> : Canonical URL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="go-Modal-actions">
+        <button class="go-Button" data-test-id="close-dialog">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+    
+    
+    
+  
+  <div class="js-canonicalURLPath" data-canonical-url-path="/github.com/pzentenoe/gorm-connection@v0.0.0/sql" hidden></div>
+  <div class="js-playgroundVars" data-modulepath="github.com/pzentenoe/gorm-connection" data-version="v0.0.0" hidden></div>
+  <script>
+    loadScript('/static/frontend/unit/main/main.js')
+  </script>
+
+  <script>
+    loadScript('/static/frontend/unit/unit.js')
+  </script>
+
+  </body>
 </html>
