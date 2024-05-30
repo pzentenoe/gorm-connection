@@ -17,7 +17,8 @@ Gorm Connection provides a convenient wrapper to simplify interactions with GORM
 * Easy integration with your existing projects
 
 ## Go Doc
-[godoc](https://pzentenoe.github.io/gorm-connection)
+<a href="https://pzentenoe.github.io/gorm-connection" target="_blank">godoc</a>
+
 
 ## Available Drivers
 
