@@ -65,6 +65,8 @@ jobs:
           args: >
             -Dsonar.projectKey=gorm-connection
             -Dsonar.sources=.
+            -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
             -Dsonar.go.coverage.reportPaths=coverage.out
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
