@@ -56,12 +56,21 @@ jobs:
         env:
           GO111MODULE: on
 
+      - name: Install godocdown
+        run: go install github.com/robertkrimen/godocdown/godocdown@latest
+
+      - name: Install Pandoc
+        run: sudo apt-get install -y pandoc
+
       - name: Generate GoDoc
-        uses: ktr0731/godoc-action@v0.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+        run: |
+          mkdir -p docs
+          godocdown -output docs/doc.md ./sql
+          pandoc docs/doc.md -o docs/index.html
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
+          publish_dir: ./docs
