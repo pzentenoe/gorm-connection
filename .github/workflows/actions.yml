@@ -80,6 +80,9 @@ jobs:
           mkdir -p docs
           wget -r -np -P docs -nH --cut-dirs=1 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
 
+      - name: Create .nojekyll
+        run: echo > docs/.nojekyll
+
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
