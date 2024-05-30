@@ -58,12 +58,18 @@ jobs:
       - name: Install godoc
         run: go install golang.org/x/tools/cmd/godoc@latest
 
-      - name: Generate GoDoc
+      - name: Install pkgsite
+        run: go install golang.org/x/pkgsite/cmd/pkgsite@latest
+
+      - name: Start pkgsite
         run: |
+          nohup pkgsite -http=:8080 &
+
+      - name: Download GoDoc
+        run: |
+          sleep 10  # Esperar a que el servidor se inicie
           mkdir -p docs
-          godoc -http=:6060 &
-          sleep 10
-          wget -r -np -P docs -nH --cut-dirs=1 http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
+          wget -r -np -P docs -nH --cut-dirs=1 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
@@ -71,6 +77,20 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+
+#      - name: Generate GoDoc
+#        run: |
+#          mkdir -p docs
+#          godoc -http=:6060 &
+#          sleep 10
+#          wget -r -np -P docs -nH --cut-dirs=1 http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/
+#
+#      - name: Deploy to GitHub Pages
+#        if: github.ref == 'refs/heads/main'
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./docs
 
 
 #      - name: Install godocdown
