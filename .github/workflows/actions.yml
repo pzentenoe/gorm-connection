@@ -1,4 +1,4 @@
-name: Go
+name: CI
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Go 1.22
         uses: actions/setup-go@v3
@@ -55,57 +55,3 @@ jobs:
         run: golangci-lint run ./...
         env:
           GO111MODULE: on
-
-#      - name: Install pkgsite
-#        run: go install golang.org/x/pkgsite/cmd/pkgsite@latest
-#
-#      - name: Start pkgsite
-#        run: |
-#          nohup pkgsite -http=:8080 > pkgsite.log 2>&1 &
-#          sleep 10  # Esperar a que el servidor se inicie
-#          for i in {1..10}; do
-#            if curl -s http://localhost:8080 > /dev/null; then
-#              echo "pkgsite is up and running"
-#              break
-#            fi
-#            echo "Waiting for pkgsite to start..."
-#            sleep 5
-#          done
-#
-#      - name: Check pkgsite log
-#        run: cat pkgsite.log
-#
-#      - name: Download GoDoc
-#        run: |
-#          mkdir -p docs
-#          cd docs
-#          wget -r -np -nH --cut-dirs=5 http://localhost:8080/pkg/github.com/pzentenoe/gorm-connection/sql/
-#          cd ..
-#
-#      - name: Create .nojekyll
-#        run: echo "" > docs/.nojekyll
-#
-#      - name: Deploy to GitHub Pages
-#        if: github.ref == 'refs/heads/main'
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_dir: ./docs
-
-      - name: Install godoc
-        run: go install golang.org/x/tools/cmd/godoc@latest
-
-      - name: Generate GoDoc
-        run: |
-          mkdir -p docs
-          godoc -http=:6060 &
-          sleep 10
-          wget -r -np -P docs -nH --cut-dirs=5 -E -k -K -p --reject "robots.txt" --no-parent http://localhost:6060/pkg/github.com/pzentenoe/gorm-connection/sql/ || true
-      - name: Create .nojekyll
-        run: echo "" > docs/.nojekyll
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
