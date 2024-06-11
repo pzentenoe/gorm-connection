@@ -6,9 +6,9 @@ Gorm Connection provides a convenient wrapper to simplify interactions with GORM
 
 ![CI](https://github.com/pzentenoe/gorm-connection/actions/workflows/actions.yml/badge.svg)
 ![GoDoc](https://github.com/pzentenoe/gorm-connection/actions/workflows/documentation.yml/badge.svg)
-![Quality Gate](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=alert_status&token=sqb_80e9f7c1ba25131fff2b9f74835b2c068005b4bf)
-![Coverage](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=coverage&token=sqb_80e9f7c1ba25131fff2b9f74835b2c068005b4bf)
-![Bugs](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=bugs&token=sqb_80e9f7c1ba25131fff2b9f74835b2c068005b4bf)
+![Quality Gate](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=alert_status&token=sqb_8235660221d0bfd8c6bfaa2655e49d4af1d410a8)
+![Coverage](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=coverage&token=sqb_8235660221d0bfd8c6bfaa2655e49d4af1d410a8)
+![Bugs](https://sonarqube.vikingcode.cl/api/project_badges/measure?project=gorm-connection&metric=bugs&token=sqb_8235660221d0bfd8c6bfaa2655e49d4af1d410a8)
 
 ## Features
 
