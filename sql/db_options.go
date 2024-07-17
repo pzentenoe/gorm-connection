@@ -8,6 +8,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
+	gormLogger "gorm.io/gorm/logger"
 	"time"
 )
 
@@ -17,6 +18,7 @@ var (
 	defaultMaxOpenCons     = 100
 	defaultConnMaxLifetime = time.Minute * 30
 	defaultConnMaxIdleTime = time.Minute * 30
+	defaultLogLevel        = gormLogger.Info
 )
 
 // DBOption holds the configuration for database connection
@@ -30,6 +32,7 @@ type DBOption struct {
 	timezone        *string
 	maxIdleConns    *int
 	maxOpenConns    *int
+	logLevel        *gormLogger.LogLevel
 	connMaxLifetime *time.Duration
 	connMaxIdleTime *time.Duration
 }
@@ -116,6 +119,12 @@ func (c *DBOption) ConnMaxIdleTime(connMaxIdleTime time.Duration) *DBOption {
 	return c
 }
 
+// SetLogLevel define LogLevel
+func (c *DBOption) SetLogLevel(logLevel gormLogger.LogLevel) *DBOption {
+	c.logLevel = &logLevel
+	return c
+}
+
 // MergeOptions merges multiple DBOption instances into one, applying default values where necessary.
 // It returns the merged DBOption and an error if any mandatory option is missing or invalid.
 func MergeOptions(opts ...*DBOption) (*DBOption, error) {
@@ -167,6 +176,11 @@ func MergeOptions(opts ...*DBOption) (*DBOption, error) {
 			option.connMaxIdleTime = opt.connMaxIdleTime
 		} else {
 			option.connMaxIdleTime = &defaultConnMaxIdleTime
+		}
+		if opt.logLevel != nil {
+			option.logLevel = opt.logLevel
+		} else {
+			option.logLevel = &defaultLogLevel
 		}
 	}
 

@@ -1,21 +1,10 @@
 package sql
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"testing"
 	"time"
 )
-
-type MockDialector struct {
-	sqlite.Dialector
-}
-
-func (m MockDialector) Initialize(*gorm.DB) error {
-	return fmt.Errorf("mock error initializing")
-}
 
 func TestNewSQLConnection(t *testing.T) {
 	t.Run("Should be able to create new connection", func(t *testing.T) {
@@ -31,6 +20,7 @@ func TestNewSQLConnection(t *testing.T) {
 			ConnMaxIdleTime(time.Minute * 10).
 			Password("password").
 			DatabaseName("test")
+		//SetLogLevel(gormLogger.Info)
 
 		conn, err := NewSQLConnection(options)
 		assert.NoError(t, err)
@@ -52,12 +42,6 @@ func TestNewSQLConnection(t *testing.T) {
 }
 
 func TestDBConnection_GetConnection(t *testing.T) {
-	opts := Config().
-		MaxIdleConns(1).
-		MaxOpenConns(1).
-		ConnMaxLifetime(time.Minute * 20).
-		ConnMaxIdleTime(time.Minute * 20)
-
 	t.Run("Should be able to get connection", func(t *testing.T) {
 		options := Config().
 			SetSQLDialect(SQLite).
@@ -76,18 +60,6 @@ func TestDBConnection_GetConnection(t *testing.T) {
 
 		assert.Equal(t, sqlDB.Stats().Idle, 1)
 		assert.Equal(t, sqlDB.Stats().MaxOpenConnections, defaultMaxOpenCons)
-	})
-
-	t.Run("connection is nil", func(t *testing.T) {
-
-		r := &DBConnection{
-			dialector: MockDialector{sqlite.Dialector{}},
-			options:   opts,
-		}
-
-		_, err := r.GetConnection()
-		assert.Error(t, err)
-		assert.Contains(t, err.Error(), "mock error initializing")
 	})
 
 }

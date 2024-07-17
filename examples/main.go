@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/pzentenoe/gorm-connection/sql"
+	gormLogger "gorm.io/gorm/logger"
 	"log"
 	"time"
 )
@@ -19,7 +20,8 @@ func main() {
 		MaxIdleConns(5).                   //Optional value default value 10
 		MaxOpenConns(50).                  // Optional option default value Optional option default value
 		ConnMaxLifetime(time.Minute * 60). // Optional option default value time.Minute * 30
-		ConnMaxIdleTime(50),               // Optional option default value 100
+		ConnMaxIdleTime(50).               // Optional option default value 100
+		SetLogLevel(gormLogger.Warn),      //Optional Default LogLevel.Info
 	)
 
 	if err != nil {

@@ -16,8 +16,8 @@ type Connection interface {
 	GetConnection() (*gorm.DB, error)
 }
 
-// DBConnection holds the details for connecting to the database.
-type DBConnection struct {
+// dbConnection holds the details for connecting to the database.
+type dbConnection struct {
 	dialector  gorm.Dialector
 	options    *DBOption
 	connection *gorm.DB
@@ -34,7 +34,7 @@ func NewSQLConnection(opts ...*DBOption) (Connection, error) {
 	if dialector == nil {
 		return nil, errors.New("error creating connection, empty dialector")
 	}
-	return &DBConnection{
+	return &dbConnection{
 		options:   databaseOptions,
 		dialector: dialector,
 	}, nil
@@ -42,13 +42,13 @@ func NewSQLConnection(opts ...*DBOption) (Connection, error) {
 
 // GetConnection establishes and returns a GORM DB connection. If the connection is already established, it returns the existing one.
 // It sets up the logger, connection pool configurations, and handles errors during the connection process.
-func (r *DBConnection) GetConnection() (*gorm.DB, error) {
+func (r *dbConnection) GetConnection() (*gorm.DB, error) {
 	if r.connection == nil {
 		newLogger := gormLogger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags),
 			gormLogger.Config{
 				SlowThreshold:             time.Second,
-				LogLevel:                  gormLogger.Warn,
+				LogLevel:                  *r.options.logLevel,
 				Colorful:                  true,
 				IgnoreRecordNotFoundError: false,
 				ParameterizedQueries:      false,
