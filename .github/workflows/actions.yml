@@ -64,6 +64,7 @@ jobs:
           args: >
             -Dsonar.projectKey=gorm-connection
             -Dsonar.sources=.
+            -Dsonar.exclusions=**/*_test.go,**/main.go
             -Dsonar.go.coverage.reportPaths=coverage.out
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
