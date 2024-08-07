@@ -23,4 +23,15 @@ check: install-tools
 	$(INEFFASSIGN) .
 
 test:
-	go test ./...
+	@echo "Running tests..."
+	go test -coverprofile=coverage.out -coverpkg=$$(go list ./... | grep -v /test$$ | grep -v main | grep -v '_repository.go$$' | tr '\n' ',') ./...
+
+coverage-report: test
+	@echo "Generating coverage report..."
+	go tool cover -func=coverage.out | grep total | awk '{print substr($$NF, 1, length($$NF)-1)}' > coverage.txt
+	@COVERAGE=$$(cat coverage.txt); \
+	echo "Coverage: $$COVERAGE"; \
+	if (( $$(echo "$$COVERAGE < 30" | bc -l) )); then \
+		echo "Coverage is below 30%. Stopping the process."; \
+		exit 1; \
+	fi
