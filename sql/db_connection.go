@@ -24,31 +24,40 @@ type dbConnection struct {
 }
 
 // NewSQLConnection creates a new SQL database connection based on the provided options.
-// It merges the provided options and initializes the dialector. If the dialector is empty, it returns an error.
-func NewSQLConnection(opts ...*DBOption) (Connection, error) {
-	databaseOptions, err := MergeOptions(opts...)
-	if err != nil {
+func NewSQLConnection(optionFuncs ...DBOptionFunc) (Connection, error) {
+	options := defaultConfig()
+	for _, optFunc := range optionFuncs {
+		optFunc(options)
+	}
+
+	if err := validateMandatoryOptions(options); err != nil {
 		return nil, err
 	}
-	dialector := databaseOptions.getGormDialector()
+
+	if options.port == 0 && options.sqlDialect.DefaultPort != 0 {
+		options.port = options.sqlDialect.DefaultPort
+	}
+
+	dialector := options.getGormDialector()
 	if dialector == nil {
 		return nil, errors.New("error creating connection, empty dialector")
 	}
+
 	return &dbConnection{
-		options:   databaseOptions,
+		options:   options,
 		dialector: dialector,
 	}, nil
 }
 
-// GetConnection establishes and returns a GORM DB connection. If the connection is already established, it returns the existing one.
-// It sets up the logger, connection pool configurations, and handles errors during the connection process.
+// GetConnection establishes and returns a GORM DB connection.
+// If the connection is already established, it returns the existing one.
 func (r *dbConnection) GetConnection() (*gorm.DB, error) {
 	if r.connection == nil {
 		newLogger := gormLogger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags),
 			gormLogger.Config{
 				SlowThreshold:             time.Second,
-				LogLevel:                  *r.options.logLevel,
+				LogLevel:                  r.options.logLevel,
 				Colorful:                  true,
 				IgnoreRecordNotFoundError: false,
 				ParameterizedQueries:      false,
@@ -66,10 +75,10 @@ func (r *dbConnection) GetConnection() (*gorm.DB, error) {
 			return nil, fmt.Errorf("error getting DB instance: %w", errConnect)
 		}
 
-		sqlDB.SetMaxIdleConns(*r.options.maxIdleConns)
-		sqlDB.SetMaxOpenConns(*r.options.maxOpenConns)
-		sqlDB.SetConnMaxLifetime(*r.options.connMaxLifetime)
-		sqlDB.SetConnMaxIdleTime(*r.options.connMaxIdleTime)
+		sqlDB.SetMaxIdleConns(r.options.maxIdleConns)
+		sqlDB.SetMaxOpenConns(r.options.maxOpenConns)
+		sqlDB.SetConnMaxLifetime(r.options.connMaxLifetime)
+		sqlDB.SetConnMaxIdleTime(r.options.connMaxIdleTime)
 
 		r.connection = connection
 	}
