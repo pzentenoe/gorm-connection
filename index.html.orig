@@ -14,7 +14,7 @@
 
 
 
-<script>var goVersion = "go1.22.5";</script>
+<script>var goVersion = "go1.22.8";</script>
 <script src="/lib/godoc/godocs.js" defer></script>
 </head>
 <body>
@@ -93,7 +93,12 @@
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				
+				<p>connection.go
+<p>options.go
+<p>dialect.go
+<p>factory.go
+<p>paginate.go
+
 				
 			</div>
 		</div>
@@ -121,55 +126,69 @@
 				<dd><a href="#Connection">type Connection</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#NewSQLConnection">func NewSQLConnection(opts ...*DBOption) (Connection, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#NewConnection">func NewConnection(dialect SQLDialect, options ...DBOptionFunc) (Connection, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMySQLConnection">func NewMySQLConnection(host, databaseName, user, password string, options ...DBOptionFunc) (Connection, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewPostgresConnection">func NewPostgresConnection(host, databaseName, user, password string, options ...DBOptionFunc) (Connection, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewSQLConnection">func NewSQLConnection(optionFuncs ...DBOptionFunc) (Connection, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewSQLServerConnection">func NewSQLServerConnection(host, databaseName, user, password string, options ...DBOptionFunc) (Connection, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewSQLiteConnection">func NewSQLiteConnection(databaseName string, options ...DBOptionFunc) (Connection, error)</a></dd>
 				
 				
 			
 				
 				<dd><a href="#DBOption">type DBOption</a></dd>
 				
-					
-					<dd>&nbsp; &nbsp; <a href="#Config">func Config() *DBOption</a></dd>
+				
+			
+				
+				<dd><a href="#DBOptionFunc">type DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#MergeOptions">func MergeOptions(opts ...*DBOption) (*DBOption, error)</a></dd>
-				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.ConnMaxIdleTime">func (c *DBOption) ConnMaxIdleTime(connMaxIdleTime time.Duration) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithConnMaxIdleTime">func WithConnMaxIdleTime(connMaxIdleTime time.Duration) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.ConnMaxLifetime">func (c *DBOption) ConnMaxLifetime(connMaxLifetime time.Duration) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithConnMaxLifetime">func WithConnMaxLifetime(connMaxLifetime time.Duration) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.DatabaseName">func (c *DBOption) DatabaseName(databaseName string) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithDatabaseName">func WithDatabaseName(name string) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Host">func (c *DBOption) Host(host string) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithHost">func WithHost(host string) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.MaxIdleConns">func (c *DBOption) MaxIdleConns(maxIdleConns int) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithLogLevel">func WithLogLevel(logLevel gormLogger.LogLevel) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.MaxOpenConns">func (c *DBOption) MaxOpenConns(maxOpenConns int) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithMaxIdleConns">func WithMaxIdleConns(maxIdleConns int) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Password">func (c *DBOption) Password(password string) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithMaxOpenConns">func WithMaxOpenConns(maxOpenConns int) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Port">func (c *DBOption) Port(port int) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithPassword">func WithPassword(password string) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.SetLogLevel">func (c *DBOption) SetLogLevel(logLevel gormLogger.LogLevel) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithPort">func WithPort(port int) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.SetSQLDialect">func (c *DBOption) SetSQLDialect(sqlDialect SQLDialect) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithSQLDialect">func WithSQLDialect(dialect SQLDialect) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.Timezone">func (c *DBOption) Timezone(timezone string) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithTimezone">func WithTimezone(timezone string) DBOptionFunc</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="#DBOption.User">func (c *DBOption) User(user string) *DBOption</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#WithUser">func WithUser(user string) DBOptionFunc</a></dd>
+				
 				
 			
 				
@@ -188,9 +207,13 @@
 			<p>
 			<span style="font-size:90%">
 			
-				<a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go">db_connection.go</a>
+				<a href="/src/github.com/pzentenoe/gorm-connection/sql/connection.go">connection.go</a>
 			
 				<a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go">db_options.go</a>
+			
+				<a href="/src/github.com/pzentenoe/gorm-connection/sql/dialector.go">dialector.go</a>
+			
+				<a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go">factories.go</a>
 			
 				<a href="/src/github.com/pzentenoe/gorm-connection/sql/pagination.go">pagination.go</a>
 			
@@ -219,7 +242,7 @@
 		
 			
 			
-			<h2 id="Paginate">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/pagination.go?s=147:207#L1">Paginate</a>
+			<h2 id="Paginate">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/pagination.go?s=170:230#L2">Paginate</a>
 				<a class="permalink" href="#Paginate">&#xb6;</a>
 				
 				
@@ -234,12 +257,12 @@
 		
 			
 			
-			<h2 id="Connection">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=198:262#L5">Connection</a>
+			<h2 id="Connection">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/connection.go?s=194:258#L6">Connection</a>
 				<a class="permalink" href="#Connection">&#xb6;</a>
 				
 				
 			</h2>
-			<p>Connection is an interface that defines the method to get a database connection.
+			<p>Connection defines the method to get a database connection.
 
 			<pre>type Connection interface {
     GetConnection() (*<a href="/pkg/gorm.io/gorm/">gorm</a>.<a href="/pkg/gorm.io/gorm/#DB">DB</a>, <a href="/pkg/builtin/#error">error</a>)
@@ -255,14 +278,73 @@
 
 			
 				
-				<h3 id="NewSQLConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_connection.go?s=632:692#L18">NewSQLConnection</a>
+				<h3 id="NewConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go?s=1417:1500#L36">NewConnection</a>
+					<a class="permalink" href="#NewConnection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewConnection(dialect <a href="#SQLDialect">SQLDialect</a>, options ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>NewConnection is a generalized factory for creating a database connection.
+
+				
+				
+			
+				
+				<h3 id="NewMySQLConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go?s=692:803#L14">NewMySQLConnection</a>
+					<a class="permalink" href="#NewMySQLConnection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewMySQLConnection(host, databaseName, user, password <a href="/pkg/builtin/#string">string</a>, options ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>NewMySQLConnection Factory function for MySQL
+
+				
+				
+			
+				
+				<h3 id="NewPostgresConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go?s=1041:1155#L25">NewPostgresConnection</a>
+					<a class="permalink" href="#NewPostgresConnection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPostgresConnection(host, databaseName, user, password <a href="/pkg/builtin/#string">string</a>, options ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>NewPostgresConnection Factory function for PostgreSQL
+
+				
+				
+			
+				
+				<h3 id="NewSQLConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/connection.go?s=642:712#L20">NewSQLConnection</a>
 					<a class="permalink" href="#NewSQLConnection">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func NewSQLConnection(opts ...*<a href="#DBOption">DBOption</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<pre>func NewSQLConnection(optionFuncs ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
 				<p>NewSQLConnection creates a new SQL database connection based on the provided options.
-It merges the provided options and initializes the dialector. If the dialector is empty, it returns an error.
+
+				
+				
+			
+				
+				<h3 id="NewSQLServerConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go?s=343:458#L3">NewSQLServerConnection</a>
+					<a class="permalink" href="#NewSQLServerConnection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSQLServerConnection(host, databaseName, user, password <a href="/pkg/builtin/#string">string</a>, options ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>NewSQLServerConnection Factory function for SQL Server
+
+				
+				
+			
+				
+				<h3 id="NewSQLiteConnection">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/factories.go?s=78:168#L1">NewSQLiteConnection</a>
+					<a class="permalink" href="#NewSQLiteConnection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSQLiteConnection(databaseName <a href="/pkg/builtin/#string">string</a>, options ...<a href="#DBOptionFunc">DBOptionFunc</a>) (<a href="#Connection">Connection</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>NewSQLiteConnection Factory function for SQLite
 
 				
 				
@@ -272,12 +354,12 @@ It merges the provided options and initializes the dialector. If the dialector i
 		
 			
 			
-			<h2 id="DBOption">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=515:860#L15">DBOption</a>
+			<h2 id="DBOption">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=377:711#L10">DBOption</a>
 				<a class="permalink" href="#DBOption">&#xb6;</a>
 				
 				
 			</h2>
-			<p>DBOption holds the configuration for database connection
+			<p>DBOption holds the configuration for database connection.
 
 			<pre>type DBOption struct {
     <span class="comment">// contains filtered or unexported fields</span>
@@ -293,209 +375,184 @@ It merges the provided options and initializes the dialector. If the dialector i
 			
 
 			
-				
-				<h3 id="Config">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=919:942#L31">Config</a>
-					<a class="permalink" href="#Config">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func Config() *<a href="#DBOption">DBOption</a></pre>
-				<p>Config initializes a new DBOption with default values
 
-				
-				
-			
-				
-				<h3 id="MergeOptions">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3752:3807#L120">MergeOptions</a>
-					<a class="permalink" href="#MergeOptions">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func MergeOptions(opts ...*<a href="#DBOption">DBOption</a>) (*<a href="#DBOption">DBOption</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
-				<p>MergeOptions merges multiple DBOption instances into one, applying default values where necessary.
-It returns the merged DBOption and an error if any mandatory option is missing or invalid.
-
-				
-				
-			
-
-			
-				
-				<h3 id="DBOption.ConnMaxIdleTime">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3286:3361#L107">ConnMaxIdleTime</a>
-					<a class="permalink" href="#DBOption.ConnMaxIdleTime">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxIdleTime(connMaxIdleTime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>ConnMaxIdleTime sets the maximum amount of time a connection may be idle before being closed.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.ConnMaxLifetime">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3010:3085#L100">ConnMaxLifetime</a>
-					<a class="permalink" href="#DBOption.ConnMaxLifetime">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) ConnMaxLifetime(connMaxLifetime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>ConnMaxLifetime sets the maximum amount of time a connection may be reused.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.DatabaseName">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1324:1386#L44">DatabaseName</a>
-					<a class="permalink" href="#DBOption.DatabaseName">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) DatabaseName(databaseName <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>DatabaseName sets the name of the database to connect to.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Host">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1538:1584#L51">Host</a>
-					<a class="permalink" href="#DBOption.Host">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Host(host <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Host sets the host address of the database server.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.MaxIdleConns">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2540:2599#L86">MaxIdleConns</a>
-					<a class="permalink" href="#DBOption.MaxIdleConns">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) MaxIdleConns(maxIdleConns <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>MaxIdleConns sets the maximum number of idle connections in the connection pool.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.MaxOpenConns">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2774:2833#L93">MaxOpenConns</a>
-					<a class="permalink" href="#DBOption.MaxOpenConns">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) MaxOpenConns(maxOpenConns <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>MaxOpenConns sets the maximum number of open connections to the database.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Password">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2098:2152#L72">Password</a>
-					<a class="permalink" href="#DBOption.Password">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Password(password <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Password sets the password for database authentication.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Port">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1731:1774#L58">Port</a>
-					<a class="permalink" href="#DBOption.Port">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Port(port <a href="/pkg/builtin/#int">int</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Port sets the port on which the database server is listening.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.SetLogLevel">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3446:3516#L113">SetLogLevel</a>
-					<a class="permalink" href="#DBOption.SetLogLevel">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) SetLogLevel(logLevel <a href="/pkg/gorm.io/gorm/logger/">gormLogger</a>.<a href="/pkg/gorm.io/gorm/logger/#LogLevel">LogLevel</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>SetLogLevel define LogLevel
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.SetSQLDialect">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1105:1170#L37">SetSQLDialect</a>
-					<a class="permalink" href="#DBOption.SetSQLDialect">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) SetSQLDialect(sqlDialect <a href="#SQLDialect">SQLDialect</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>SetSQLDialect sets the SQL dialect to be used (e.g., SQLServer, MySQL, Postgres).
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.Timezone">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2312:2366#L79">Timezone</a>
-					<a class="permalink" href="#DBOption.Timezone">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) Timezone(timezone <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>Timezone sets the timezone to be used for the database connection.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
-			
-				
-				<h3 id="DBOption.User">func (*DBOption) <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1911:1957#L65">User</a>
-					<a class="permalink" href="#DBOption.User">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c *<a href="#DBOption">DBOption</a>) User(user <a href="/pkg/builtin/#string">string</a>) *<a href="#DBOption">DBOption</a></pre>
-				<p>User sets the username for database authentication.
-It returns the modified DBOption for chaining.
-
-				
-				
-				
 			
 		
 			
 			
-			<h2 id="SQLDialect">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=5977:6040#L213">SQLDialect</a>
+			<h2 id="DBOptionFunc">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1135:1168#L38">DBOptionFunc</a>
+				<a class="permalink" href="#DBOptionFunc">&#xb6;</a>
+				
+				
+			</h2>
+			<p>DBOptionFunc defines a function type for setting options.
+
+			<pre>type DBOptionFunc func(*<a href="#DBOption">DBOption</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="WithConnMaxIdleTime">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2845:2913#L111">WithConnMaxIdleTime</a>
+					<a class="permalink" href="#WithConnMaxIdleTime">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithConnMaxIdleTime(connMaxIdleTime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithConnMaxIdleTime sets the maximum idle time for a connection.
+
+				
+				
+			
+				
+				<h3 id="WithConnMaxLifetime">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2634:2702#L104">WithConnMaxLifetime</a>
+					<a class="permalink" href="#WithConnMaxLifetime">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithConnMaxLifetime(connMaxLifetime <a href="/pkg/time/">time</a>.<a href="/pkg/time/#Duration">Duration</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithConnMaxLifetime sets the maximum connection lifetime.
+
+				
+				
+			
+				
+				<h3 id="WithDatabaseName">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1382:1429#L48">WithDatabaseName</a>
+					<a class="permalink" href="#WithDatabaseName">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithDatabaseName(name <a href="/pkg/builtin/#string">string</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithDatabaseName sets the database name option.
+
+				
+				
+			
+				
+				<h3 id="WithHost">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1533:1572#L55">WithHost</a>
+					<a class="permalink" href="#WithHost">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithHost(host <a href="/pkg/builtin/#string">string</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithHost sets the database host option.
+
+				
+				
+			
+				
+				<h3 id="WithLogLevel">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=3033:3093#L118">WithLogLevel</a>
+					<a class="permalink" href="#WithLogLevel">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithLogLevel(logLevel <a href="/pkg/gorm.io/gorm/logger/">gormLogger</a>.<a href="/pkg/gorm.io/gorm/logger/#LogLevel">LogLevel</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithLogLevel sets the log level for GORM.
+
+				
+				
+			
+				
+				<h3 id="WithMaxIdleConns">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2266:2318#L90">WithMaxIdleConns</a>
+					<a class="permalink" href="#WithMaxIdleConns">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithMaxIdleConns(maxIdleConns <a href="/pkg/builtin/#int">int</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithMaxIdleConns sets the maximum number of idle connections.
+
+				
+				
+			
+				
+				<h3 id="WithMaxOpenConns">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2452:2504#L97">WithMaxOpenConns</a>
+					<a class="permalink" href="#WithMaxOpenConns">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithMaxOpenConns(maxOpenConns <a href="/pkg/builtin/#int">int</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithMaxOpenConns sets the maximum number of open connections.
+
+				
+				
+			
+				
+				<h3 id="WithPassword">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1943:1990#L76">WithPassword</a>
+					<a class="permalink" href="#WithPassword">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithPassword(password <a href="/pkg/builtin/#string">string</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithPassword sets the database password option.
+
+				
+				
+			
+				
+				<h3 id="WithPort">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1668:1704#L62">WithPort</a>
+					<a class="permalink" href="#WithPort">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithPort(port <a href="/pkg/builtin/#int">int</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithPort sets the database port option.
+
+				
+				
+			
+				
+				<h3 id="WithSQLDialect">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1217:1269#L41">WithSQLDialect</a>
+					<a class="permalink" href="#WithSQLDialect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithSQLDialect(dialect <a href="#SQLDialect">SQLDialect</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithSQLDialect sets the SQL dialect option.
+
+				
+				
+			
+				
+				<h3 id="WithTimezone">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=2093:2140#L83">WithTimezone</a>
+					<a class="permalink" href="#WithTimezone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithTimezone(timezone <a href="/pkg/builtin/#string">string</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithTimezone sets the timezone option.
+
+				
+				
+			
+				
+				<h3 id="WithUser">func <a href="/src/github.com/pzentenoe/gorm-connection/sql/db_options.go?s=1800:1839#L69">WithUser</a>
+					<a class="permalink" href="#WithUser">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func WithUser(user <a href="/pkg/builtin/#string">string</a>) <a href="#DBOptionFunc">DBOptionFunc</a></pre>
+				<p>WithUser sets the database user option.
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="SQLDialect">type <a href="/src/github.com/pzentenoe/gorm-connection/sql/dialector.go?s=249:312#L6">SQLDialect</a>
 				<a class="permalink" href="#SQLDialect">&#xb6;</a>
 				
 				
 			</h2>
-			<p>SQLDialect represents a SQL dialect with its name and default port
+			<p>SQLDialect represents a SQL dialect with its name and default port.
 
 			<pre>type SQLDialect struct {
 <span id="SQLDialect.Name"></span>    Name        <a href="/pkg/builtin/#string">string</a>
@@ -526,7 +583,7 @@ It returns the modified DBOption for chaining.
 
 
 <div id="footer">
-Build version go1.22.5.<br>
+Build version go1.22.8.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
