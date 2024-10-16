@@ -3,105 +3,65 @@ package main
 import (
 	"fmt"
 	"github.com/pzentenoe/gorm-connection/sql"
-	gormLogger "gorm.io/gorm/logger"
 	"log"
-	"time"
 )
 
 func main() {
-	connection, err := sql.NewSQLConnection(sql.Config().
-		SetSQLDialect(sql.Postgres).
-		Host("localhost").
-		DatabaseName("test_db").
-		User("test_user").
-		Password("test_password").
-		Port(sql.Postgres.DefaultPort).    //Optional because there is a default port in sql.Postgres.DefaultPort
-		Timezone("America/Santiago").      //Optional default value "UTC"
-		MaxIdleConns(5).                   //Optional value default value 10
-		MaxOpenConns(50).                  // Optional option default value Optional option default value
-		ConnMaxLifetime(time.Minute * 60). // Optional option default value time.Minute * 30
-		ConnMaxIdleTime(50).               // Optional option default value 100
-		SetLogLevel(gormLogger.Warn),      //Optional Default LogLevel.Info
-	)
-
+	// Example using SQLite
+	connection, err := sql.NewSQLiteConnection("test_db")
 	if err != nil {
-		log.Fatalf("failed to connect to database: %v", err)
+		log.Fatalf("failed to connect to SQLite database: %v", err)
 	}
 
-	//Migrate
-	gormConn, _ := connection.GetConnection()
-	err = gormConn.AutoMigrate(Product{})
+	// Get GORM connection
+	gormConn, err := connection.GetConnection()
 	if err != nil {
-		return
+		log.Fatalf("failed to get GORM connection: %v", err)
 	}
 
-	//Find by id
-	var product Product
-	tx := gormConn.Find(&product, "id = ?", 1)
+	// Migrate models
+	err = gormConn.AutoMigrate(&Product{})
+	if err != nil {
+		log.Fatalf("failed to migrate models: %v", err)
+	}
+
+	// Insert a new product
+	newProduct := Product{
+		Name:  "Milk",
+		Price: 1.25,
+	}
+	tx := gormConn.Create(&newProduct)
 	if tx.Error != nil {
-		log.Fatalf("failed to find product: %v", tx.Error)
-	} else {
-		fmt.Println("product found:", product)
+		log.Fatalf("failed to create product: %v", tx.Error)
 	}
+	fmt.Printf("New product created with ID %d\n", newProduct.ID)
 
-	if product.ID != 0 {
-		//Insert
-		newProduct := Product{
-			Name:  "Milk",
-			Price: 1.25,
-		}
-		tx = gormConn.Create(&newProduct)
-		if tx.Error != nil {
-			log.Fatalf("failed to create product: %v", tx.Error)
-		}
-		fmt.Printf("new product created id %d\n", newProduct.ID)
+	// Find all products
+	var products []Product
+	tx = gormConn.Find(&products)
+	if tx.Error != nil {
+		log.Fatalf("failed to find products: %v", tx.Error)
 	}
-
-	productRepository := NewProductRepository(connection)
-
-	//Find
-	products, err := productRepository.FindAllProducts()
-	if err != nil {
-		return
-	}
-	//Do it anything with products array
 	for _, product := range products {
-		fmt.Print(product)
+		fmt.Printf("Product: %+v\n", product)
 	}
-	db, _ := gormConn.DB()
-	err = db.Close()
+
+	// Close the database connection
+	sqlDB, err := gormConn.DB()
 	if err != nil {
-		fmt.Println("failed to close connection ", err)
+		log.Fatalf("failed to get database object: %v", err)
 	}
-}
-
-// Example
-// Use your created connection for create your repository
-type ProductRepository struct {
-	dbConnection sql.Connection
-}
-
-func NewProductRepository(dbConnection sql.Connection) *ProductRepository {
-	return &ProductRepository{dbConnection: dbConnection}
-}
-
-func (r *ProductRepository) FindAllProducts() ([]*Product, error) {
-	db, err := r.dbConnection.GetConnection()
+	err = sqlDB.Close()
 	if err != nil {
-		return nil, err
+		fmt.Println("failed to close connection:", err)
 	}
-	products := make([]*Product, 0)
-	dbResponse := db.Find(&products)
-	if dbResponse.Error != nil {
-		return nil, dbResponse.Error
-	}
-	return products, nil
 }
 
+// Product model
 type Product struct {
-	ID    uint    `gorm:"column:id; primaryKey; autoIncrement;"`
-	Name  string  `gorm:"column:name; not null"`
-	Price float64 `gorm:"column:price; not null"`
+	ID    uint    `gorm:"column:id;primaryKey;autoIncrement"`
+	Name  string  `gorm:"column:name;not null"`
+	Price float64 `gorm:"column:price;not null"`
 }
 
 func (*Product) TableName() string {

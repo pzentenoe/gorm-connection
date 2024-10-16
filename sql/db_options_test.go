@@ -1,47 +1,61 @@
 package sql
 
 import (
-	"github.com/stretchr/testify/assert"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestMergeOptions(t *testing.T) {
-	t.Run("when merge options works ok", func(t *testing.T) {
-		opts1 := Config().
-			SetSQLDialect(Postgres).
-			DatabaseName("testdb").
-			Host("localhost").
-			Port(5432).
-			User("testuser").
-			Password("testpassword")
+const testDBName = "test"
 
-		opts2 := Config().
-			SetSQLDialect(Postgres)
+func TestValidateMandatoryOptions_AllValid(t *testing.T) {
+	options := &DBOption{
+		sqlDialect:   Postgres,
+		databaseName: testDBName,
+		host:         "localhost",
+		port:         5432,
+		user:         "user",
+		password:     "password",
+	}
 
-		mergedOptions, err := MergeOptions(opts1, opts2)
-		assert.NoError(t, err)
-
-		assert.Equal(t, Postgres, mergedOptions.sqlDialect)
-		assert.Equal(t, "testdb", *mergedOptions.databaseName)
-		assert.Equal(t, "localhost", *mergedOptions.host)
-		assert.Equal(t, 5432, *mergedOptions.port)
-		assert.Equal(t, "testuser", *mergedOptions.user)
-		assert.Equal(t, "testpassword", *mergedOptions.password)
-	})
+	err := validateMandatoryOptions(options)
+	assert.NoError(t, err)
 }
 
-func TestDBOption_getGormDialector(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		opts := Config().
-			SetSQLDialect(SQLite).
-			DatabaseName("test")
+func TestValidateMandatoryOptions_MissingDialect(t *testing.T) {
+	options := &DBOption{
+		databaseName: testDBName,
+		host:         "localhost",
+		port:         5432,
+		user:         "user",
+		password:     "password",
+	}
 
-		dialector := opts.getGormDialector()
-		assert.NotNil(t, dialector)
+	err := validateMandatoryOptions(options)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid sqlDialect")
+}
 
-		_, err := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{})
-		assert.NoError(t, err)
-	})
+func TestValidateMandatoryOptions_MissingDatabaseName(t *testing.T) {
+	options := &DBOption{
+		sqlDialect: Postgres,
+		host:       "localhost",
+		port:       5432,
+		user:       "user",
+		password:   "password",
+	}
+
+	err := validateMandatoryOptions(options)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid database name")
+}
+
+func TestValidateMandatoryOptions_SQLite(t *testing.T) {
+	options := &DBOption{
+		sqlDialect:   SQLite,
+		databaseName: testDBName,
+	}
+
+	err := validateMandatoryOptions(options)
+	assert.NoError(t, err)
 }

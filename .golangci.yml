@@ -11,7 +11,7 @@ linters:
     #- revive
     - unused
     #- govet
-    - exportloopref
+    - copyloopvar
 
 issues:
   exclude-use-default: false
