@@ -1,8 +1,10 @@
+// dialect.go
 package sql
 
 import (
 	"fmt"
-	"github.com/PuerkitoBio/urlesc"
+	"net/url"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
@@ -26,23 +28,24 @@ var (
 
 // URL formats for various SQL dialects.
 const (
-	urlSQLServerFormat = "sqlserver://%v:%v@%v:%v?database=%v"
-	urlMysqlFormat     = "%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local"
-	urlPostgresFormat  = "host=%v user=%v password=%v dbname=%v port=%v sslmode=disable TimeZone=%v"
+	urlSQLServerFormat = "sqlserver://%s:%s@%s:%d?database=%s"
+	urlMysqlFormat     = "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
+	urlPostgresFormat  = "host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=%s"
 )
 
 // getGormDialector returns the appropriate GORM Dialector based on the SQL dialect and other options.
 func (c *DBOption) getGormDialector() gorm.Dialector {
 	switch c.sqlDialect {
 	case SQLServer:
-		url := fmt.Sprintf(urlSQLServerFormat, c.user, urlesc.QueryEscape(c.password), c.host, c.port, c.databaseName)
-		return sqlserver.Open(url)
+		escapedPassword := url.QueryEscape(c.password)
+		dsn := fmt.Sprintf(urlSQLServerFormat, c.user, escapedPassword, c.host, c.port, c.databaseName)
+		return sqlserver.Open(dsn)
 	case MySQL:
-		url := fmt.Sprintf(urlMysqlFormat, c.user, c.password, c.host, c.port, c.databaseName)
-		return mysql.Open(url)
+		dsn := fmt.Sprintf(urlMysqlFormat, c.user, c.password, c.host, c.port, c.databaseName)
+		return mysql.Open(dsn)
 	case Postgres:
-		url := fmt.Sprintf(urlPostgresFormat, c.host, c.user, c.password, c.databaseName, c.port, c.timezone)
-		return postgres.Open(url)
+		dsn := fmt.Sprintf(urlPostgresFormat, c.host, c.user, c.password, c.databaseName, c.port, c.timezone)
+		return postgres.Open(dsn)
 	case SQLite:
 		return sqlite.Open(fmt.Sprintf("%s.db", c.databaseName))
 	default:
